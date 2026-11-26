@@ -387,102 +387,442 @@
         </ul>
         <a class="btn-green" href="https://www.google.com/maps/search/?api=1&query=Iriebe+Town+Port+Harcourt+Rivers+State" target="_blank" rel="noopener">Get Directions <span class="arrow">↗</span></a>
       </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iriebe Town Secondary School (UBE) — Leadership with Distinction</title>
+  <meta name="description" content="Iriebe Town Secondary School (UBE), Iriebe Town, Port Harcourt, Rivers State. Quality, free basic education. Check student results online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
-      <form class="contact-form reveal" id="contactForm">
-        <label>Your Name
-          <input type="text" name="name" required placeholder="e.g. Mrs. Blessing Amadi">
-        </label>
-        <label>Phone or Email
-          <input type="text" name="contact" required placeholder="How do we reach you?">
-        </label>
-        <label>Your Message
-          <textarea name="message" rows="5" required placeholder="Type your message here…"></textarea>
-        </label>
-        <button type="submit" class="btn-green btn-lg">Send Message</button>
-        <p class="form-status" id="formStatus" role="status"></p>
+  <!-- Self-contained styling for the NEW Results Portal section only.
+       Everything else keeps using styles.css untouched. -->
+  <style>
+    .nav-cta{
+      background:var(--red,#e02424);color:#fff !important;
+      padding:.55rem 1.3rem;border-radius:50px;font-weight:700;
+      white-space:nowrap;transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(224,36,36,.35)}
+    .rportal{
+      background:linear-gradient(180deg,#e8f7ef 0%, #ffffff 100%);
+    }
+    .rportal-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:1.4rem;margin-top:2.2rem;
+    }
+    @media(max-width:860px){.rportal-grid{grid-template-columns:1fr}}
+    .rportal-card{
+      background:#fff;border:1px solid #e2efe8;border-radius:16px;
+      padding:2rem 1.6rem;text-align:center;
+      box-shadow:0 10px 30px rgba(4,51,27,.08);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .rportal-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(4,51,27,.14)}
+    .rportal-icon{
+      width:66px;height:66px;margin:0 auto 1rem;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+      background:#e8f7ef;border:3px solid #bfe8d2;
+    }
+    .rportal-card h3{color:var(--green-deep,#075c2e);font-size:1.1rem;margin-bottom:.5rem}
+    .rportal-card p{color:#5a6b60;font-size:.92rem;min-height:3.4em}
+    .rportal-btn{
+      display:inline-block;margin-top:1.2rem;padding:.75rem 1.7rem;
+      border-radius:50px;font-weight:700;font-size:.92rem;text-decoration:none;
+      background:linear-gradient(135deg,var(--green,#0d7a3f),var(--green-deep,#075c2e));
+      color:#fff;box-shadow:0 8px 20px rgba(13,122,63,.28);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .rportal-btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(13,122,63,.4)}
+    .rportal-note{
+      margin-top:1.8rem;text-align:center;color:#5a6b60;font-size:.9rem;
+    }
+    .rportal-note strong{color:var(--green-deep,#075c2e)}
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">
+        <img src="images/school-logo.png" alt="School logo" class="brand-logo" data-fallback>
+        <span class="brand-name">
+          <span data-admin="schoolName1">Iriebe Town</span><br>
+          <span data-admin="schoolName2">Secondary School (UBE)</span>
+        </span>
+      </a>
+
+      <button id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="mainNav">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#headteacher">Head Teacher</a>
+        <a class="nav-link" href="#results">Results</a>
+        <a class="nav-link" href="#news">News</a>
+        <a class="nav-link" href="#gallery">Gallery</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <a class="nav-cta" href="portal/login.php">Check Result</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= NOTICE STRIP ================= -->
+  <div class="notice-strip">
+    <div class="container notice-inner">
+      <span class="notice-badge">NOTICE</span>
+      <p data-admin="noticeText">Admission into JSS 1 for the 2026/2027 academic session is now open — visit the school to register your ward.</p>
+    </div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="home">
+    <div class="hero-slideshow" id="heroSlideshow">
+      <img class="hero-slide is-active" src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1600&q=70" alt="Students in class">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&q=70" alt="Teacher with students">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1600&q=70" alt="Classroom">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=70" alt="Education">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1600&q=70" alt="Teaching at the board">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=70" alt="Books">
+      <img class="hero-slide" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=70" alt="Graduation">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title" data-admin="heroTitle">Leadership with<br>Distinction</h1>
+      <p class="hero-sub" data-admin="heroSub">We focus on dynamic education, holistic development, and building a brighter future for your child and our nation.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="portal/login.php">Check Result</a>
+        <a class="btn btn-outline" href="#about">Discover More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="eyebrow reveal">About Our School</p>
+      <h2 class="section-title reveal">Welcome to Iriebe Town Secondary School</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p data-admin="aboutP1">Iriebe Town Secondary School (UBE) is a government secondary school located in Iriebe Town, Port Harcourt, Rivers State, serving the community under the Universal Basic Education programme. The school is committed to providing quality, free and compulsory basic education to every child.</p>
+          <p data-admin="aboutP2">With dedicated teachers and a safe learning environment, the school prepares students in the junior secondary classes for success in senior secondary education and beyond, instilling the values of hard work, discipline and service to the community.</p>
+        </div>
+        <div class="about-media reveal">
+          <video controls preload="none" poster="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=70">
+            <source src="https://videos.pexels.com/video-files/3196344/3196344-uhd_2560_1440_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HEAD TEACHER ================= -->
+  <section class="section" id="headteacher">
+    <div class="container ht-grid">
+      <div class="ht-photo reveal">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=70" alt="Head Teacher" data-fallback>
+      </div>
+      <div class="ht-text reveal">
+        <p class="eyebrow">From the Head Teacher's Desk</p>
+        <blockquote data-admin="htMsg">On behalf of the staff and students of Iriebe Town Secondary School (UBE), I warmly welcome you. Our doors are open to every child in Iriebe Town and its neighbouring communities. We believe every child deserves a solid foundation, and we work daily with parents and the community to give our students the discipline, knowledge and confidence to excel.</blockquote>
+        <p class="ht-name" data-admin="htName">Mr. Chinedu Wokoma</p>
+        <p class="ht-role" data-admin="htRole">Head Teacher</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat reveal"><span class="stat-num" data-count="1200">0</span><span class="stat-suffix">+</span><span class="stat-label">Students</span></div>
+      <div class="stat reveal"><span class="stat-num" data-count="45">0</span><span class="stat-suffix">+</span><span class="stat-label">Teaching &amp; Support Staff</span></div>
+      <div class="stat reveal"><span class="stat-num" data-count="18">0</span><span class="stat-label">Subjects Offered</span></div>
+      <div class="stat reveal"><span class="stat-num" data-count="100">0</span><span class="stat-suffix">%</span><span class="stat-label">Free Tuition (UBE)</span></div>
+    </div>
+  </section>
+
+  <!-- ================= RESULTS PORTAL (NEW) ================= -->
+  <section class="section rportal" id="results">
+    <div class="container">
+      <p class="eyebrow reveal">Results Portal</p>
+      <h2 class="section-title reveal">Check Your Child's Result Online</h2>
+      <p class="reveal" style="max-width:720px;margin:.6rem auto 0;text-align:center;color:#5a6b60;">
+        Term results are now published on this website. Parents and guardians can view and print
+        the official result sheet from anywhere — all you need is your child's exam number and PIN,
+        issued by the school.
+      </p>
+
+      <div class="rportal-grid">
+        <div class="rportal-card reveal">
+          <div class="rportal-icon">🎓</div>
+          <h3>Students &amp; Parents</h3>
+          <p>Sign in with the exam number and PIN printed on the slip given by the school to view and print term results.</p>
+          <a class="rportal-btn" href="portal/login.php">Check Result →</a>
+        </div>
+        <div class="rportal-card reveal">
+          <div class="rportal-icon">👩🏾‍🏫</div>
+          <h3>Teachers</h3>
+          <p>Sign in with the username and password created for you by the school administrator to enter and manage scores.</p>
+          <a class="rportal-btn" href="portal/login.php">Teacher Login →</a>
+        </div>
+        <div class="rportal-card reveal">
+          <div class="rportal-icon">🛡️</div>
+          <h3>School Admin</h3>
+          <p>Register students, create teacher accounts, manage subjects and terms, and publish results for parents to see.</p>
+          <a class="rportal-btn" href="portal/login.php">Admin Login →</a>
+        </div>
+      </div>
+
+      <p class="rportal-note reveal">
+        <strong>Don't have a PIN?</strong> Visit the school office with your child's exam number
+        to collect the result-check slip, or call <span data-admin="contactPhone">+234 800 000 0000</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= DISCOVER (NIGHT) ================= -->
+  <section class="section night" id="discover">
+    <div class="container">
+      <p class="eyebrow reveal">Discover Iriebe</p>
+      <h2 class="section-title reveal">Learning Beyond the Classroom</h2>
+      <div class="cards-grid">
+        <div class="card reveal">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=70" alt="Group study" data-fallback>
+          <h3>Academic Excellence</h3>
+          <p>Structured junior-secondary teaching across sciences, arts and commercial subjects, with continuous assessment every term.</p>
+        </div>
+        <div class="card reveal">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=70" alt="Sports" data-fallback>
+          <h3>Sports &amp; Games</h3>
+          <p>Inter-house athletics, football and indoor games that build teamwork, fitness and healthy competition.</p>
+        </div>
+        <div class="card reveal">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=70" alt="Cultural activities" data-fallback>
+          <h3>Culture &amp; Values</h3>
+          <p>Cultural day, debates, drama and societies that connect students to their heritage and grow confident speakers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEWS ================= -->
+  <section class="section" id="news">
+    <div class="container">
+      <p class="eyebrow reveal">Latest News</p>
+      <h2 class="section-title reveal">What's Happening in School</h2>
+      <div class="cards-grid">
+        <article class="card news-card reveal">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=800&q=70" alt="Sports day" data-fallback>
+          <div class="news-body">
+            <span class="news-tag">Sports</span>
+            <h3 data-admin="news1">Inter-House Sports Competition</h3>
+            <p>Our annual inter-house sports brought out the best in our athletes as the houses competed for the trophy.</p>
+          </div>
+        </article>
+        <article class="card news-card reveal">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=70" alt="Cultural day" data-fallback>
+          <div class="news-body">
+            <span class="news-tag">Culture</span>
+            <h3 data-admin="news2">Cultural Day Celebration</h3>
+            <p>Students showcased the rich cultures of Rivers State and Nigeria through dance, food and traditional attire.</p>
+          </div>
+        </article>
+        <article class="card news-card reveal">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=70" alt="Science practical" data-fallback>
+          <div class="news-body">
+            <span class="news-tag">Academics</span>
+            <h3 data-admin="news3">Science Practical Sessions</h3>
+            <p>Basic Science practicals are in full swing, giving students hands-on experience ahead of their examinations.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= POPULAR LINKS ================= -->
+  <section class="section" id="links">
+    <div class="container">
+      <p class="eyebrow reveal">Quick Access</p>
+      <h2 class="section-title reveal">Popular Links</h2>
+      <div class="links-grid">
+        <a class="quick-link reveal" href="portal/login.php">
+          <span class="ql-icon">📊</span><span class="ql-text">Check Result</span><span class="ql-arrow">→</span>
+        </a>
+        <a class="quick-link reveal" href="portal/login.php">
+          <span class="ql-icon">👩🏾‍🏫</span><span class="ql-text">Staff Portal</span><span class="ql-arrow">→</span>
+        </a>
+        <a class="quick-link reveal" href="#contact">
+          <span class="ql-icon">📝</span><span class="ql-text">Admission Enquiry</span><span class="ql-arrow">→</span>
+        </a>
+        <a class="quick-link reveal" href="#news">
+          <span class="ql-icon">📅</span><span class="ql-text">School Calendar &amp; News</span><span class="ql-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY (NIGHT) ================= -->
+  <section class="section night" id="gallery">
+    <div class="container">
+      <p class="eyebrow reveal">Gallery</p>
+      <h2 class="section-title reveal">Life at Iriebe Town Secondary School</h2>
+      <div class="gallery-grid">
+        <img class="reveal" src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=700&q=70" alt="Class activity" data-fallback>
+        <img class="reveal" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=700&q=70" alt="Lesson in progress" data-fallback>
+        <img class="reveal" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=700&q=70" alt="Classroom" data-fallback>
+        <img class="reveal" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=70" alt="Library books" data-fallback>
+        <img class="reveal" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=70" alt="Achievement" data-fallback>
+        <img class="reveal" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=700&q=70" alt="Teaching" data-fallback>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <p class="eyebrow reveal">Testimonials</p>
+      <h2 class="section-title reveal">What Parents &amp; Students Say</h2>
+      <div class="testimonial-wrap reveal">
+        <div class="testimonial-rotator" id="testimonialRotator">
+          <figure class="testimonial-card is-active">
+            <blockquote>"Since my daughter joined this school, her confidence and her grades have both improved. The teachers genuinely care."</blockquote>
+            <figcaption>— Mrs. Adaeze O., Parent</figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote>"The school is disciplined and the environment is safe. I can focus on my studies and my teachers always encourage me."</blockquote>
+            <figcaption>— Chiamaka E., JSS 3 Student</figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote>"Checking my son's result online saved me a trip to the school. The new portal is a wonderful development."</blockquote>
+            <figcaption>— Mr. Tamuno W., Parent</figcaption>
+          </figure>
+        </div>
+        <div class="testimonial-dots" id="testimonialDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= APPLY BANNER (PINK) ================= -->
+  <section class="apply-banner" id="apply">
+    <div class="container apply-inner">
+      <div class="apply-text reveal">
+        <h2 data-admin="applyTitle">Apply Now: Admission into JSS 1 — 2026/2027 Session</h2>
+        <p data-admin="applyText">This is to notify the general public that admission into JSS 1 for the 2026/2027 academic session is currently ongoing. Interested parents and guardians are encouraged to visit the school to register their wards.</p>
+      </div>
+      <a class="btn btn-light reveal" href="#contact">Enquire Now</a>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="faq">
+    <div class="container">
+      <p class="eyebrow reveal">FAQ</p>
+      <h2 class="section-title reveal">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">Is the school tuition really free?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Yes. As a Universal Basic Education (UBE) school, tuition is free and compulsory for every child of junior secondary age. Only minor PTA and examination levies may apply.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">How do I register my child for JSS 1?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Visit the school office in Iriebe Town with your child's birth certificate and last primary school report. Registration for the 2026/2027 session is currently open.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">How do I check my child's result online?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Click the "Check Result" button on this website, then sign in with your child's exam number and the PIN issued by the school. Results appear only after they are officially published by the school.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">What if the PIN is lost?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Visit the school office with the student's exam number and a means of identification. The administrator will issue a replacement slip.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-q" type="button">What are the school hours?<span class="faq-icon">+</span></button>
+          <div class="faq-a"><p>Monday to Friday, 7:30am to 2:30pm. Students are expected in school by 7:15am for morning assembly.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info reveal">
+        <p class="eyebrow">Contact</p>
+        <h2 class="section-title" style="text-align:left;margin-bottom:1.2rem;">Get in Touch</h2>
+        <ul class="contact-list">
+          <li><span class="ci-icon">📍</span><span data-admin="contactAddress">Iriebe Town, Port Harcourt, Rivers State, Nigeria</span></li>
+          <li><span class="ci-icon">📞</span><span data-admin="contactPhone">+234 800 000 0000</span></li>
+          <li><span class="ci-icon">✉️</span><span data-admin="contactEmail">info@iriebetownsec.sch.ng</span></li>
+          <li><span class="ci-icon">🕒</span><span data-admin="contactHours">Monday – Friday, 7:30am – 2:30pm</span></li>
+        </ul>
+        <div class="socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="X (Twitter)">𝕏</a>
+          <a href="#" aria-label="WhatsApp">✆</a>
+        </div>
+      </div>
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <h3>Send Us a Message</h3>
+        <label for="cfName">Full Name</label>
+        <input type="text" id="cfName" name="name" required>
+        <label for="cfContact">Phone or Email</label>
+        <input type="text" id="cfContact" name="contact" required>
+        <label for="cfMsg">Your Message</label>
+        <textarea id="cfMsg" name="message" rows="5" required></textarea>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+        <p id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
 
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-
-      <div class="footer-head">
-        <img src="images/school-logo.png" alt="Iriebe Town Secondary School (UBE) crest" class="footer-crest" data-fallback>
-        <p class="footer-name">IRIEBE TOWN<br>SECONDARY SCHOOL (UBE)</p>
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="brand-name footer-name">
+          <span data-admin="schoolName1">Iriebe Town</span>
+          <span data-admin="schoolName2">Secondary School (UBE)</span>
+        </span>
+        <p>Quality, free basic education for every child in Iriebe Town and beyond.</p>
       </div>
-
-      <div class="footer-divider"></div>
-
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h5>Discover</h5>
-          <a href="#about">About Us <span class="arr">↗</span></a>
-          <a href="#headteacher">Head Teacher's Message <span class="arr">↗</span></a>
-          <a href="#">Our Staff <span class="arr">↗</span></a>
-          <a href="#discover">Our Facilities <span class="arr">↗</span></a>
-          <a href="#discover">Academics <span class="arr">↗</span></a>
-        </div>
-
-        <div class="footer-col">
-          <h5>Quick links</h5>
-          <a href="#gallery">Our Curriculum <span class="arr">↗</span></a>
-          <a href="#testimonials">Testimonials <span class="arr">↗</span></a>
-          <a href="#gallery">Media Gallery <span class="arr">↗</span></a>
-          <a href="#">Alumni <span class="arr">↗</span></a>
-          <a href="#">Check Result <span class="arr">↗</span></a>
-        </div>
-
-        <div class="footer-col">
-          <h5>Admissions</h5>
-          <a href="#apply">Admission Notice <span class="arr">↗</span></a>
-          <a href="#apply">Admission Process <span class="arr">↗</span></a>
-          <a href="#faq">Requirements <span class="arr">↗</span></a>
-        </div>
-
-        <div class="footer-col">
-          <h5>Keep In Touch</h5>
-          <a href="#contact">Contact us <span class="arr">↗</span></a>
-          <a href="#">Newsletter <span class="arr">↗</span></a>
-          <a href="#">Social Media Connect <span class="arr">↗</span></a>
-
-          <div class="social-row">
-            <a href="#" class="soc" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.7c0-.9.3-1.6 1.6-1.6h1.7V3.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.5V13h2.6v8h3.4z"/></svg>
-            </a>
-            <a href="#" class="soc" aria-label="Twitter">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M20.9 7.1c-.6.3-1.3.5-2 .6.7-.4 1.3-1.1 1.5-1.9-.7.4-1.4.7-2.2.8a3.6 3.6 0 0 0-6.1 3.3A10.2 10.2 0 0 1 4.7 6a3.6 3.6 0 0 0 1.1 4.8c-.6 0-1.1-.2-1.6-.4a3.6 3.6 0 0 0 2.9 3.5c-.5.1-1.1.2-1.7.1a3.6 3.6 0 0 0 3.4 2.5A7.3 7.3 0 0 1 3 18.1a10.3 10.3 0 0 0 15.8-8.6v-.5c.7-.5 1.3-1.1 2.1-1.9z"/></svg>
-            </a>
-            <a href="#" class="soc" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26.3 26.3 0 0 0 2 12a26.3 26.3 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26.3 26.3 0 0 0 22 12a26.3 26.3 0 0 0-.4-4.8zM10 15.2V8.8l5.2 3.2L10 15.2z"/></svg>
-            </a>
-            <a href="#" class="soc" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.9-7.8a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 4.2c-2.4 0-2.7 0-3.7.1a5 5 0 0 0-1.6.3 3.3 3.3 0 0 0-2 2 4.6 4.6 0 0 0-.3 1.6c-.1 1-.1 1.3-.1 3.7s0 2.7.1 3.7c0 .6.2 1.1.3 1.6a3.3 3.3 0 0 0 2 2c.5.2 1 .3 1.6.3 1 .1 1.3.1 3.7.1s2.7 0 3.7-.1a5 5 0 0 0 1.6-.3 3.3 3.3 0 0 0 2-2c.2-.5.3-1 .3-1.6.1-1 .1-1.3.1-3.7s0 2.7-.1-3.7a4.6 4.6 0 0 0-.3-1.6 3.3 3.3 0 0 0-2-2 4.6 4.6 0 0 0-1.6-.3c-1-.1-1.3-.1-3.7-.1z"/></svg>
-            </a>
-          </div>
-        </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#about">About</a>
+        <a href="portal/login.php">Check Result</a>
+        <a href="#news">News</a>
+        <a href="#apply">Admission</a>
+        <a href="#contact">Contact</a>
       </div>
-
-      <div class="footer-divider"></div>
-
-      <div class="footer-bottom">
-        <p>© <span id="year">2026</span> Iriebe Town Secondary School (UBE), Port Harcourt</p>
-        <a href="#top" class="scroll-top-link">SCROLL TO TOP</a>
+      <div class="footer-links">
+        <h4>Portals</h4>
+        <a href="portal/login.php">Students &amp; Parents</a>
+        <a href="portal/login.php">Teachers</a>
+        <a href="portal/login.php">School Admin</a>
       </div>
-
-      <div class="footer-credit">
-        <span>Built by</span>
-        <img src="images/new-tech-logo.png" alt="New Technologies logo" data-fallback>
-        <span>New Technologies</span>
+      <div class="footer-contact">
+        <h4>Visit Us</h4>
+        <p data-admin="contactAddress">Iriebe Town, Port Harcourt, Rivers State, Nigeria</p>
+        <p data-admin="contactPhone">+234 800 000 0000</p>
       </div>
-
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> Iriebe Town Secondary School (UBE). All rights reserved.</p>
+      <p class="credit">Built by <a href="#" title="New Technologies"><img src="images/new-tech-logo.png" alt="New Technologies" class="credit-logo" data-fallback> New Technologies</a></p>
     </div>
   </footer>
 
-  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">︿</a>
+  <button id="backToTop" aria-label="Back to top">↑</button>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
