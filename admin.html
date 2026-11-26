@@ -1,0 +1,506 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Iriebe Town Secondary School (UBE)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root{
+      --green:#0d7a3f; --green-deep:#075c2e; --green-night:#04331b;
+      --mint:#bfe8d2; --mint-soft:#e8f7ef; --mint-mid:#7fceab;
+      --red:#e02424; --gold:#f0b429;
+      --ink:#16241c; --grey:#5a6b60; --white:#ffffff; --off:#f7faf8;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--off);color:var(--ink);line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap{width:min(980px,92%);margin-inline:auto}
+
+    /* ---------- Login gate ---------- */
+    .gate{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:
+        radial-gradient(900px 460px at 85% -10%, rgba(127,206,171,.18), transparent 60%),
+        linear-gradient(160deg, var(--green-night), #02180d);
+      padding:2rem 0;
+    }
+    .gate-card{
+      background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.35);
+      padding:2.6rem 2.4rem;width:min(420px,92%);
+      border-top:6px solid var(--green);text-align:center;
+    }
+    .gate-card .crest{
+      width:64px;height:64px;border-radius:50%;
+      background:var(--mint-soft);color:var(--green);
+      display:inline-flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:1.2rem;margin-bottom:1rem;
+      border:3px solid var(--mint);
+    }
+    .gate-card h1{font-size:1.25rem;color:var(--green-deep);margin-bottom:.3rem}
+    .gate-card p{color:var(--grey);font-size:.92rem;margin-bottom:1.4rem}
+    .gate-card input{
+      width:100%;padding:.85rem 1rem;font-size:1rem;
+      border:1.5px solid var(--mint-mid);border-radius:10px;
+      margin-bottom:1rem;text-align:center;letter-spacing:2px;
+    }
+    .gate-card input:focus{outline:none;border-color:var(--green);
+      box-shadow:0 0 0 4px rgba(13,122,63,.12)}
+    .gate-error{color:var(--red);font-weight:700;font-size:.9rem;
+      min-height:1.4em;margin-top:.6rem}
+
+    /* ---------- Buttons ---------- */
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:linear-gradient(135deg,var(--green),var(--green-deep));
+      color:#fff;font-weight:700;border:none;cursor:pointer;
+      padding:.8rem 1.6rem;border-radius:50px;font-size:.95rem;
+      box-shadow:0 8px 20px rgba(13,122,63,.3);
+      transition:transform .2s ease, box-shadow .2s ease;
+      text-decoration:none;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(13,122,63,.4)}
+    .btn-block{width:100%;justify-content:center}
+    .btn-outline{
+      background:#fff;color:var(--green-deep);
+      border:2px solid var(--mint-mid);box-shadow:none;
+    }
+    .btn-outline:hover{border-color:var(--green)}
+    .btn-danger{
+      background:#fff;color:var(--red);border:2px solid #f3b8b8;box-shadow:none;
+    }
+    .btn-danger:hover{border-color:var(--red)}
+
+    /* ---------- Dashboard shell ---------- */
+    .topbar{
+      background:linear-gradient(135deg,var(--green-deep),var(--green));
+      color:#fff;padding:1rem 0;position:sticky;top:0;z-index:50;
+      box-shadow:0 4px 18px rgba(4,51,27,.25);
+    }
+    .topbar-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .topbar h1{font-size:1.1rem;letter-spacing:.4px}
+    .topbar .sub{font-size:.8rem;color:var(--mint);display:block}
+    .topbar-actions{margin-left:auto;display:flex;gap:.6rem;flex-wrap:wrap}
+    .topbar-actions .btn{padding:.55rem 1.1rem;font-size:.85rem}
+
+    .notice-info{
+      background:#fff8e6;border:1px solid var(--gold);border-radius:12px;
+      padding:1rem 1.2rem;margin:1.6rem 0;font-size:.92rem;color:#7a5b00;
+    }
+
+    fieldset{
+      background:#fff;border:1px solid #e2efe8;border-radius:14px;
+      padding:1.6rem 1.5rem;margin-bottom:1.4rem;
+      box-shadow:0 6px 18px rgba(4,51,27,.06);
+    }
+    legend{
+      font-weight:900;color:var(--green-deep);font-size:1.02rem;
+      padding:0 .6rem;letter-spacing:.3px;
+    }
+    .field{margin-bottom:1.1rem}
+    .field:last-child{margin-bottom:0}
+    .field label{
+      display:block;font-weight:700;font-size:.88rem;
+      color:var(--green-deep);margin-bottom:.35rem;
+    }
+    .field .hint{display:block;font-weight:400;font-size:.78rem;color:var(--grey)}
+    .field input,.field textarea{
+      width:100%;font-family:inherit;font-size:.98rem;
+      padding:.75rem .9rem;border:1.5px solid var(--mint-mid);
+      border-radius:10px;background:var(--off);resize:vertical;
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus,.field textarea:focus{
+      outline:none;border-color:var(--green);
+      box-shadow:0 0 0 4px rgba(13,122,63,.12);background:#fff;
+    }
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+
+    .savebar{
+      position:sticky;bottom:0;z-index:40;
+      background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+      border-top:1px solid #dfeeda;
+      padding:.9rem 0;margin-top:1.5rem;
+    }
+    .savebar-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .save-status{font-weight:700;font-size:.92rem;min-height:1.3em}
+    .save-status.ok{color:var(--green)}
+    .save-status.err{color:var(--red)}
+
+    .hidden{display:none !important}
+    .footer-note{
+      text-align:center;color:var(--grey);font-size:.82rem;
+      padding:1.6rem 0 2.4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ LOGIN GATE ============ -->
+  <div class="gate" id="gate">
+    <form class="gate-card" id="gateForm" autocomplete="off">
+      <span class="crest">IT</span>
+      <h1>Admin Dashboard</h1>
+      <p>Iriebe Town Secondary School (UBE)<br>Enter the admin passcode to continue.</p>
+      <input type="password" id="gatePass" placeholder="Passcode" required>
+      <button type="submit" class="btn btn-block">Sign In</button>
+      <p class="gate-error" id="gateError"></p>
+    </form>
+  </div>
+
+  <!-- ============ DASHBOARD ============ -->
+  <div id="dashboard" class="hidden">
+
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <div>
+          <h1>Website Admin Dashboard</h1>
+          <span class="sub">Iriebe Town Secondary School (UBE) — edit the words on your website without touching code</span>
+        </div>
+        <div class="topbar-actions">
+          <a class="btn btn-outline" href="index.html" target="_blank" rel="noopener">View Website ↗</a>
+          <button class="btn btn-danger" id="logoutBtn" type="button">Log Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+
+      <div class="notice-info">
+        <strong>How saving works:</strong> pressing <strong>Save Changes</strong> updates the website
+        <strong>instantly on this computer/browser</strong>. To make the changes appear for
+        <strong>every visitor</strong>, click <strong>Download content.json</strong> after saving and
+        upload that file to the same folder as <em>index.html</em> on your web host.
+      </div>
+
+      <form id="adminForm" autocomplete="off">
+
+        <fieldset>
+          <legend>School Name (top bar &amp; branding)</legend>
+          <div class="grid-2">
+            <div class="field">
+              <label for="schoolName1">Name — first line</label>
+              <input type="text" id="schoolName1" data-key="schoolName1">
+            </div>
+            <div class="field">
+              <label for="schoolName2">Name — second line</label>
+              <input type="text" id="schoolName2" data-key="schoolName2">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Hero Section (top of homepage)</legend>
+          <div class="field">
+            <label for="heroTitle">Big headline
+              <span class="hint">Press Enter for a line break, e.g. "Leadership with" ↵ "Distinction"</span>
+            </label>
+            <textarea id="heroTitle" data-key="heroTitle" rows="2"></textarea>
+          </div>
+          <div class="field">
+            <label for="heroSub">Sentence under the headline</label>
+            <textarea id="heroSub" data-key="heroSub" rows="2"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Red Notice Strip</legend>
+          <div class="field">
+            <label for="noticeText">Announcement text</label>
+            <textarea id="noticeText" data-key="noticeText" rows="2"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>About the School</legend>
+          <div class="field">
+            <label for="aboutP1">First paragraph</label>
+            <textarea id="aboutP1" data-key="aboutP1" rows="4"></textarea>
+          </div>
+          <div class="field">
+            <label for="aboutP2">Second paragraph</label>
+            <textarea id="aboutP2" data-key="aboutP2" rows="4"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Head Teacher's Welcome</legend>
+          <div class="field">
+            <label for="htMsg">Welcome message</label>
+            <textarea id="htMsg" data-key="htMsg" rows="5"></textarea>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="htName">Head Teacher's name</label>
+              <input type="text" id="htName" data-key="htName">
+            </div>
+            <div class="field">
+              <label for="htRole">Title (e.g. Head Teacher)</label>
+              <input type="text" id="htRole" data-key="htRole">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>News Headlines (3 cards)</legend>
+          <div class="field">
+            <label for="news1">News card 1</label>
+            <input type="text" id="news1" data-key="news1">
+          </div>
+          <div class="field">
+            <label for="news2">News card 2</label>
+            <input type="text" id="news2" data-key="news2">
+          </div>
+          <div class="field">
+            <label for="news3">News card 3</label>
+            <input type="text" id="news3" data-key="news3">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Admission Banner (pink section)</legend>
+          <div class="field">
+            <label for="applyTitle">Banner heading</label>
+            <input type="text" id="applyTitle" data-key="applyTitle">
+          </div>
+          <div class="field">
+            <label for="applyText">Banner text</label>
+            <textarea id="applyText" data-key="applyText" rows="3"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contact Details</legend>
+          <div class="field">
+            <label for="contactAddress">Address</label>
+            <input type="text" id="contactAddress" data-key="contactAddress">
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="contactPhone">Phone</label>
+              <input type="text" id="contactPhone" data-key="contactPhone">
+            </div>
+            <div class="field">
+              <label for="contactEmail">Email</label>
+              <input type="text" id="contactEmail" data-key="contactEmail">
+            </div>
+          </div>
+          <div class="field">
+            <label for="contactHours">School hours</label>
+            <input type="text" id="contactHours" data-key="contactHours">
+          </div>
+        </fieldset>
+
+      </form>
+
+      <fieldset>
+        <legend>Backup &amp; Restore</legend>
+        <div class="grid-2">
+          <div class="field">
+            <label>Download content.json
+              <span class="hint">Save the current wording as a file — upload it next to index.html so every visitor sees it</span>
+            </label>
+            <button type="button" class="btn btn-outline" id="exportBtn">Download content.json</button>
+          </div>
+          <div class="field">
+            <label for="importFile">Restore from a content.json file
+              <span class="hint">Pick a previously downloaded file to load its wording here</span>
+            </label>
+            <input type="file" id="importFile" accept=".json,application/json">
+          </div>
+        </div>
+        <div class="field" style="margin-top:.6rem">
+          <label>Start over
+            <span class="hint">Remove every change made on this browser and return to the original wording</span>
+          </label>
+          <button type="button" class="btn btn-danger" id="resetBtn">Reset All Changes</button>
+        </div>
+      </fieldset>
+
+    </main>
+
+    <div class="savebar">
+      <div class="wrap savebar-inner">
+        <button type="button" class="btn" id="saveBtn">💾 Save Changes</button>
+        <span class="save-status" id="saveStatus"></span>
+      </div>
+    </div>
+
+    <p class="footer-note">Iriebe Town Secondary School (UBE) — Admin · Built by New Technologies</p>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var PASSCODE   = 'iriebe2026';
+      var STORAGE_KEY = 'itss_content';   // must match script.js
+      var AUTH_KEY    = 'itss_admin_auth';
+
+      /* Default wording — identical to what is inside index.html,
+         so the form opens pre-filled with the live text. */
+      var DEFAULTS = {
+        schoolName1: 'Iriebe Town',
+        schoolName2: 'Secondary School (UBE)',
+        heroTitle: 'Leadership with\nDistinction',
+        heroSub: 'We focus on dynamic education, holistic development, and building a brighter future for your child and our nation.',
+        noticeText: 'Admission into JSS 1 for the 2026/2027 academic session is now open — visit the school to register your ward.',
+        aboutP1: 'Iriebe Town Secondary School (UBE) is a government secondary school located in Iriebe Town, Port Harcourt, Rivers State, serving the community under the Universal Basic Education programme. The school is committed to providing quality, free and compulsory basic education to every child.',
+        aboutP2: 'With dedicated teachers and a safe learning environment, the school prepares students in the junior secondary classes for success in senior secondary education and beyond, instilling the values of hard work, discipline and service to the community.',
+        htMsg: 'On behalf of the staff and students of Iriebe Town Secondary School (UBE), I warmly welcome you. Our doors are open to every child in Iriebe Town and its neighbouring communities. We believe every child deserves a solid foundation, and we work daily with parents and the community to give our students the discipline, knowledge and confidence to excel.',
+        htName: 'Mr. Chinedu Wokoma',
+        htRole: 'Head Teacher',
+        news1: 'Inter-House Sports Competition',
+        news2: 'Cultural Day Celebration',
+        news3: 'Science Practical Sessions',
+        applyTitle: 'Apply Now: Admission into JSS 1 — 2026/2027 Session',
+        applyText: 'This is to notify the general public that admission into JSS 1 for the 2026/2027 academic session is currently ongoing. Interested parents and guardians are encouraged to visit the school to register their wards.',
+        contactAddress: 'Iriebe Town, Port Harcourt, Rivers State, Nigeria',
+        contactPhone: '+234 800 000 0000',
+        contactEmail: 'info@iriebetownsec.sch.ng',
+        contactHours: 'Monday – Friday, 7:30am – 2:30pm'
+      };
+
+      var gate      = document.getElementById('gate');
+      var gateForm  = document.getElementById('gateForm');
+      var gatePass  = document.getElementById('gatePass');
+      var gateError = document.getElementById('gateError');
+      var dashboard = document.getElementById('dashboard');
+      var saveBtn   = document.getElementById('saveBtn');
+      var saveStatus= document.getElementById('saveStatus');
+      var exportBtn = document.getElementById('exportBtn');
+      var importFile= document.getElementById('importFile');
+      var resetBtn  = document.getElementById('resetBtn');
+      var logoutBtn = document.getElementById('logoutBtn');
+
+      /* ---------- Auth ---------- */
+      function isAuthed() {
+        try { return sessionStorage.getItem(AUTH_KEY) === '1'; }
+        catch (e) { return false; }
+      }
+      function showDashboard() {
+        gate.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        fillForm();
+      }
+      gateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (gatePass.value === PASSCODE) {
+          try { sessionStorage.setItem(AUTH_KEY, '1'); } catch (err) {}
+          gateError.textContent = '';
+          showDashboard();
+        } else {
+          gateError.textContent = 'Incorrect passcode. Please try again.';
+          gatePass.value = '';
+          gatePass.focus();
+        }
+      });
+      logoutBtn.addEventListener('click', function () {
+        try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+        location.reload();
+      });
+
+      /* ---------- Load / fill ---------- */
+      function getSaved() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+        catch (e) { return {}; }
+      }
+      function currentValues() {
+        var saved = getSaved();
+        var merged = {};
+        Object.keys(DEFAULTS).forEach(function (key) {
+          merged[key] = (saved[key] != null && saved[key] !== '') ? saved[key] : DEFAULTS[key];
+        });
+        return merged;
+      }
+      function fillForm() {
+        var values = currentValues();
+        document.querySelectorAll('[data-key]').forEach(function (el) {
+          var key = el.getAttribute('data-key');
+          if (values[key] != null) el.value = values[key];
+        });
+      }
+
+      /* ---------- Save ---------- */
+      function setStatus(msg, ok) {
+        saveStatus.textContent = msg;
+        saveStatus.className = 'save-status ' + (ok ? 'ok' : 'err');
+        if (msg) {
+          setTimeout(function () {
+            if (saveStatus.textContent === msg) saveStatus.textContent = '';
+          }, 5000);
+        }
+      }
+      saveBtn.addEventListener('click', function () {
+        var data = {};
+        document.querySelectorAll('[data-key]').forEach(function (el) {
+          var v = el.value.trim();
+          if (v !== '') data[el.getAttribute('data-key')] = v;
+        });
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          setStatus('✔ Saved! Open the website in this browser to see your changes.', true);
+        } catch (e) {
+          setStatus('Could not save — browser storage is unavailable.', false);
+        }
+      });
+
+      /* ---------- Export content.json ---------- */
+      exportBtn.addEventListener('click', function () {
+        var data = currentValues();
+        // include anything extra previously saved too
+        var saved = getSaved();
+        Object.keys(saved).forEach(function (k) {
+          if (saved[k] != null && saved[k] !== '') data[k] = saved[k];
+        });
+        var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'content.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        setStatus('✔ content.json downloaded — upload it next to index.html on your host.', true);
+      });
+
+      /* ---------- Import content.json ---------- */
+      importFile.addEventListener('change', function () {
+        var file = importFile.files && importFile.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          try {
+            var data = JSON.parse(reader.result);
+            if (typeof data !== 'object' || data === null) throw new Error('bad');
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            fillForm();
+            setStatus('✔ File loaded and saved. Review the fields above.', true);
+          } catch (e) {
+            setStatus('That file is not a valid content.json.', false);
+          }
+          importFile.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      /* ---------- Reset ---------- */
+      resetBtn.addEventListener('click', function () {
+        if (!confirm('Remove ALL changes made on this browser and restore the original wording?')) return;
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        fillForm();
+        setStatus('✔ Changes cleared — the website shows its original wording again.', true);
+      });
+
+      /* ---------- Boot ---------- */
+      if (isAuthed()) showDashboard();
+
+    })();
+  </script>
+</body>
+</html>
