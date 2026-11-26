@@ -1,0 +1,500 @@
+/* ============================================================
+   IRIEBE TOWN SECONDARY SCHOOL (UBE) — PORTAL STYLES
+   File: portal/portal.css
+   Covers: login page + all dashboard pages (admin, results,
+   teacher, student), including print styles for result sheets.
+   ============================================================ */
+
+/* ---------------- 0. PALETTE ----------------
+   Same greens as styles.css so the portal feels like the site.
+   Declared again here so this file works even when styles.css
+   is not loaded (dashboards load portal.css alone).          */
+:root{
+  --green:       #0d7a3f;
+  --green-deep:  #075c2e;
+  --green-night: #04331b;
+  --pink:        #ff4d7d;
+  --red:         #e02424;
+  --gold:        #f5b301;
+  --ink:         #123324;
+  --muted:       #5a6b60;
+  --line:        #dcebe2;
+  --bg:          #eef5f0;
+  --card:        #ffffff;
+  --radius:      14px;
+  --shadow:      0 12px 34px rgba(4,51,27,.10);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:'Roboto',Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
+}
+h1,h2,h3,h4{line-height:1.2;margin:0}
+a{color:var(--green)}
+img{max-width:100%}
+.muted{color:var(--muted)}
+.center{text-align:center}
+
+/* ============================================================
+   1. LOGIN PAGE  (portal/login.php)
+   ============================================================ */
+.portal-body{
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(255,77,125,.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(13,122,63,.35), transparent 60%),
+    linear-gradient(160deg, var(--green-night) 0%, var(--green-deep) 55%, #0a4a26 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem 1rem;
+}
+.login-wrap{width:100%;max-width:430px}
+.login-card{
+  background:var(--card);
+  border-radius:20px;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  padding:2.2rem 2rem 1.8rem;
+  text-align:center;
+}
+.login-brand{
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  text-decoration:none;color:var(--ink);margin-bottom:1.1rem;
+}
+.login-brand img{width:54px;height:54px;object-fit:contain}
+.login-school{display:flex;flex-direction:column;text-align:left;line-height:1.15}
+.login-school strong{
+  font-family:'Archivo Black',Arial,sans-serif;
+  font-size:1.02rem;color:var(--green-deep);letter-spacing:.3px;
+}
+.login-school span{font-size:.8rem;color:var(--muted);font-weight:500}
+.login-title{
+  font-family:'Archivo Black',Arial,sans-serif;
+  font-size:1.45rem;color:var(--ink);margin-bottom:.15rem;
+}
+.login-sub{color:var(--muted);font-size:.92rem;margin:0 0 1.3rem}
+
+/* Tabs */
+.login-tabs{
+  display:flex;background:#e7f2ec;border-radius:50px;
+  padding:4px;margin-bottom:1.3rem;
+}
+.login-tab{
+  flex:1;border:0;background:transparent;cursor:pointer;
+  font-family:inherit;font-weight:700;font-size:.86rem;color:var(--muted);
+  padding:.6rem .4rem;border-radius:50px;transition:all .2s ease;
+}
+.login-tab.is-active{
+  background:linear-gradient(135deg,var(--green),var(--green-deep));
+  color:#fff;box-shadow:0 6px 14px rgba(13,122,63,.30);
+}
+
+/* Messages */
+.login-note{
+  border-radius:10px;padding:.65rem .9rem;font-size:.88rem;
+  margin:0 0 1rem;font-weight:500;text-align:left;
+}
+.login-note.ok  {background:#e6f6ec;color:#0a5c2f;border:1px solid #bfe6cd}
+.login-note.bad {background:#fdeaea;color:#a31313;border:1px solid #f3c1c1}
+
+/* Forms */
+.login-form{display:none;text-align:left}
+.login-form.is-active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.login-form label{
+  display:block;font-size:.82rem;font-weight:700;color:var(--ink);
+  margin:0 0 .3rem;text-transform:uppercase;letter-spacing:.4px;
+}
+.login-form input{
+  width:100%;padding:.8rem 1rem;margin:0 0 1rem;
+  border:1.5px solid var(--line);border-radius:10px;
+  font-family:inherit;font-size:1rem;color:var(--ink);
+  background:#fbfdfc;transition:border-color .2s ease, box-shadow .2s ease;
+}
+.login-form input:focus{
+  outline:none;border-color:var(--green);
+  box-shadow:0 0 0 4px rgba(13,122,63,.12);background:#fff;
+}
+.login-submit{width:100%;margin-top:.2rem;justify-content:center}
+.login-hint{font-size:.8rem;color:var(--muted);margin:.9rem 0 0}
+.login-back{
+  display:inline-block;margin-top:1.3rem;font-size:.85rem;
+  color:var(--muted);text-decoration:none;
+}
+.login-back:hover{color:var(--green-deep)}
+.login-foot{
+  text-align:center;color:rgba(255,255,255,.75);
+  font-size:.8rem;margin:1.2rem 0 0;
+}
+
+/* ============================================================
+   2. PORTAL SHELL (topbar + nav) — all dashboard pages
+   ============================================================ */
+.portal-top{
+  background:linear-gradient(135deg,var(--green-night),var(--green-deep));
+  color:#fff;
+  padding:.8rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 4px 18px rgba(0,0,0,.22);
+}
+.pt-brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:#fff}
+.pt-brand img{width:42px;height:42px;object-fit:contain;background:#fff;border-radius:50%;padding:3px}
+.pt-name{display:flex;flex-direction:column;line-height:1.1}
+.pt-name strong{
+  font-family:'Archivo Black',Arial,sans-serif;font-size:.92rem;letter-spacing:.3px;
+}
+.pt-name span{font-size:.72rem;opacity:.85}
+.pt-right{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+.pt-user{font-size:.86rem;display:flex;align-items:center;gap:.4rem}
+.pt-user em{
+  font-style:normal;font-size:.72rem;font-weight:700;
+  background:rgba(255,255,255,.16);padding:.15rem .55rem;border-radius:50px;
+  text-transform:uppercase;letter-spacing:.5px;
+}
+.pt-logout{
+  color:#fff;text-decoration:none;font-size:.82rem;font-weight:700;
+  border:1.5px solid rgba(255,255,255,.5);padding:.4rem .95rem;border-radius:50px;
+  transition:all .2s ease;
+}
+.pt-logout:hover{background:var(--red);border-color:var(--red)}
+
+/* Section navigation under the topbar */
+.portal-nav{
+  background:#fff;border-bottom:1px solid var(--line);
+  padding:.55rem 1.2rem;display:flex;gap:.45rem;flex-wrap:wrap;
+  position:sticky;top:60px;z-index:40;
+}
+.pn-link{
+  text-decoration:none;color:var(--muted);font-weight:600;font-size:.86rem;
+  padding:.45rem .95rem;border-radius:50px;transition:all .18s ease;
+}
+.pn-link:hover{background:#e7f2ec;color:var(--green-deep)}
+.pn-link.is-active{
+  background:linear-gradient(135deg,var(--green),var(--green-deep));
+  color:#fff;box-shadow:0 5px 12px rgba(13,122,63,.28);
+}
+
+/* ============================================================
+   3. PAGE BODY / HEADINGS / PANELS
+   ============================================================ */
+.portal-main{
+  max-width:1180px;margin:0 auto;
+  padding:1.6rem 1.2rem 3.5rem;
+}
+.pm-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem;
+}
+.pm-head h1{font-size:1.45rem;color:var(--green-deep)}
+.pm-head p{margin:.2rem 0 0;color:var(--muted);font-size:.9rem}
+.pm-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+
+.panel{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  margin-bottom:1.4rem;overflow:hidden;
+}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;flex-wrap:wrap;
+  padding:1rem 1.3rem;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#f4faf6,#fff);
+}
+.panel-head h2{font-size:1.05rem;color:var(--green-deep)}
+.panel-head .muted{font-size:.84rem}
+.panel-body{padding:1.3rem}
+.panel-body.flush{padding:0}        /* for tables that go edge to edge */
+
+/* Stat tiles */
+.tiles{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1rem;margin-bottom:1.4rem;
+}
+.tile{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:1.15rem 1.1rem;text-align:center;
+}
+.tile-num{
+  display:block;font-family:'Archivo Black',Arial,sans-serif;
+  font-size:1.9rem;color:var(--green);line-height:1.1;
+}
+.tile-num.warn{color:var(--gold)}
+.tile-num.bad{color:var(--red)}
+.tile-label{
+  display:block;margin-top:.25rem;font-size:.8rem;font-weight:600;
+  color:var(--muted);text-transform:uppercase;letter-spacing:.5px;
+}
+
+/* ============================================================
+   4. BUTTONS (self-contained — dashboards don't load styles.css)
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:inherit;font-weight:700;font-size:.9rem;
+  padding:.7rem 1.5rem;border-radius:50px;border:0;cursor:pointer;
+  text-decoration:none;transition:transform .18s ease, box-shadow .18s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--green),var(--green-deep));
+  color:#fff;box-shadow:0 8px 18px rgba(13,122,63,.26);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(13,122,63,.36)}
+.btn-danger{
+  background:linear-gradient(135deg,#ef4444,#c81e1e);
+  color:#fff;box-shadow:0 8px 18px rgba(224,36,36,.24);
+}
+.btn-danger:hover{transform:translateY(-2px)}
+.btn-gold{
+  background:linear-gradient(135deg,#f7c948,#e0a800);
+  color:#3d2e00;box-shadow:0 8px 18px rgba(245,179,1,.28);
+}
+.btn-outline{
+  background:#fff;color:var(--green-deep);
+  border:1.5px solid var(--green);box-shadow:none;
+}
+.btn-outline:hover{background:#e7f2ec}
+.btn-sm{padding:.42rem 1rem;font-size:.8rem}
+.btn-block{width:100%;justify-content:center}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none !important}
+
+/* Inline table actions */
+.tact{
+  font-size:.8rem;font-weight:700;color:var(--green-deep);
+  text-decoration:none;margin-right:.6rem;white-space:nowrap;
+}
+.tact:hover{text-decoration:underline}
+.tact.danger{color:var(--red)}
+.tact.gold{color:#b8860b}
+
+/* ============================================================
+   5. FORMS INSIDE DASHBOARDS
+   ============================================================ */
+.pform label{
+  display:block;font-size:.8rem;font-weight:700;color:var(--ink);
+  margin:0 0 .3rem;text-transform:uppercase;letter-spacing:.4px;
+}
+.pform input,.pform select,.pform textarea{
+  width:100%;padding:.65rem .9rem;margin:0 0 .9rem;
+  border:1.5px solid var(--line);border-radius:9px;
+  font-family:inherit;font-size:.95rem;color:var(--ink);background:#fbfdfc;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.pform input:focus,.pform select:focus,.pform textarea:focus{
+  outline:none;border-color:var(--green);
+  box-shadow:0 0 0 4px rgba(13,122,63,.10);background:#fff;
+}
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 1rem}
+.fgrid-3{grid-template-columns:repeat(3,1fr)}
+.fcheck{
+  display:flex;align-items:center;gap:.55rem;
+  font-size:.9rem;font-weight:500;color:var(--ink);
+  text-transform:none;letter-spacing:0;margin-bottom:.9rem;cursor:pointer;
+}
+.fcheck input{width:auto;margin:0;padding:0}
+.form-foot{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem}
+
+/* ============================================================
+   6. TABLES
+   ============================================================ */
+.table-wrap{overflow-x:auto}
+.ptable{width:100%;border-collapse:collapse;font-size:.9rem}
+.ptable th{
+  text-align:left;padding:.75rem 1rem;font-size:.76rem;
+  text-transform:uppercase;letter-spacing:.5px;color:var(--muted);
+  background:#f2f8f4;border-bottom:2px solid var(--line);white-space:nowrap;
+}
+.ptable td{
+  padding:.72rem 1rem;border-bottom:1px solid #eef4f0;vertical-align:middle;
+}
+.ptable tbody tr:hover{background:#f6fbf8}
+.ptable tbody tr:last-child td{border-bottom:0}
+.ptable .num{text-align:right;font-variant-numeric:tabular-nums}
+.ptable .c{text-align:center}
+.ptable strong.nm{color:var(--ink)}
+
+/* Score-entry grid (teacher page) */
+.score-table input.score-in{
+  width:70px;padding:.4rem .45rem;text-align:center;
+  border:1.5px solid var(--line);border-radius:8px;
+  font-family:inherit;font-size:.92rem;font-variant-numeric:tabular-nums;
+}
+.score-table input.score-in:focus{
+  outline:none;border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(13,122,63,.12);
+}
+.score-table input.score-in:disabled{
+  background:#f1f5f2;color:#9db3a6;border-color:#e6efe9;cursor:not-allowed;
+}
+.score-table td.sticky-name{
+  position:sticky;left:0;background:#fff;z-index:2;min-width:170px;
+  box-shadow:2px 0 0 #eef4f0;
+}
+.score-table tr:hover td.sticky-name{background:#f6fbf8}
+
+/* ============================================================
+   7. FLASH MESSAGES / NOTICES / PILLS / EMPTY STATES
+   ============================================================ */
+.flash{
+  border-radius:10px;padding:.8rem 1.1rem;font-size:.9rem;font-weight:500;
+  margin:0 0 1.2rem;border:1px solid transparent;
+}
+.flash.ok  {background:#e6f6ec;color:#0a5c2f;border-color:#bfe6cd}
+.flash.bad {background:#fdeaea;color:#a31313;border-color:#f3c1c1}
+.flash.warn{background:#fff7e0;color:#8a6d00;border-color:#f2e3a1}
+.flash.info{background:#e8f0fe;color:#1a3f9c;border-color:#c3d6f5}
+
+.pill{
+  display:inline-block;font-size:.74rem;font-weight:700;
+  padding:.2rem .7rem;border-radius:50px;letter-spacing:.4px;
+  text-transform:uppercase;white-space:nowrap;
+}
+.pill.ok  {background:#e6f6ec;color:#0a5c2f}
+.pill.warn{background:#fff3cd;color:#8a6d00}
+.pill.bad {background:#fdeaea;color:#a31313}
+.pill.info{background:#e8f0fe;color:#1a3f9c}
+.pill.gold{background:#fdf0d0;color:#8a6d00}
+.pill.pink{background:#ffe3ec;color:#c2185b}
+
+.empty{
+  text-align:center;color:var(--muted);
+  padding:2.6rem 1.5rem;font-size:.94rem;
+}
+.empty .big{font-size:2.2rem;display:block;margin-bottom:.5rem}
+
+/* Utility rows */
+.row-flex{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.spread{justify-content:space-between}
+.mt{margin-top:1rem}
+.mb{margin-bottom:1rem}
+.hr{border:0;border-top:1px solid var(--line);margin:1.3rem 0}
+
+/* ============================================================
+   8. STUDENT RESULT SHEET (student.php) + PRINT
+   ============================================================ */
+.sheet-wrap{max-width:900px;margin:0 auto}
+.sheet{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);padding:2.2rem 2.4rem;position:relative;
+}
+.sheet-head{
+  display:flex;align-items:center;gap:1rem;
+  border-bottom:3px double var(--green-deep);padding-bottom:1rem;margin-bottom:1.1rem;
+}
+.sheet-head img{width:64px;height:64px;object-fit:contain}
+.sheet-head .sh-name{
+  font-family:'Archivo Black',Arial,sans-serif;
+  font-size:1.25rem;color:var(--green-deep);line-height:1.15;
+}
+.sheet-head .sh-sub{font-size:.82rem;color:var(--muted)}
+.sheet-head .sh-term{
+  margin-left:auto;text-align:right;font-size:.8rem;color:var(--muted);
+}
+.sheet-head .sh-term strong{display:block;color:var(--ink);font-size:.95rem}
+
+.sheet-meta{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem 1.4rem;
+  font-size:.9rem;margin-bottom:1.2rem;
+}
+.sheet-meta div{padding:.35rem 0;border-bottom:1px dotted #cfe4d6}
+.sheet-meta span{color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.5px;display:block}
+
+.sheet-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:1.2rem}
+.sheet-table th{
+  background:var(--green-deep);color:#fff;padding:.6rem .7rem;
+  font-size:.74rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;
+}
+.sheet-table th:first-child{text-align:left}
+.sheet-table td{
+  border:1px solid #d8e8de;padding:.55rem .7rem;text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+.sheet-table td:first-child{text-align:left}
+.sheet-table tbody tr:nth-child(even){background:#f4faf6}
+.sheet-table .tot-row td{font-weight:700;background:#e7f2ec}
+
+.sheet-summary{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:.8rem;margin-bottom:1.4rem;
+}
+.sheet-summary .ss{
+  border:1.5px solid var(--line);border-radius:12px;
+  padding:.7rem;text-align:center;background:#fbfdfc;
+}
+.sheet-summary .ss b{
+  display:block;font-size:1.25rem;color:var(--green-deep);
+  font-family:'Archivo Black',Arial,sans-serif;
+}
+.sheet-summary .ss span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+.sign-row{
+  display:flex;justify-content:space-between;gap:2rem;
+  margin-top:2.6rem;flex-wrap:wrap;
+}
+.sign-line{
+  width:230px;border-top:1.5px solid var(--ink);
+  padding-top:.35rem;font-size:.82rem;color:var(--muted);text-align:center;
+}
+.sheet-foot{
+  margin-top:1.6rem;padding-top:.8rem;border-top:1px solid var(--line);
+  font-size:.74rem;color:var(--muted);text-align:center;
+}
+.sheet-actions{
+  display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;
+  margin:1.3rem 0;
+}
+
+/* PIN slip card (admin prints these) */
+.slip{
+  border:1.5px dashed var(--green);border-radius:12px;
+  padding:1rem 1.2rem;margin-bottom:.8rem;background:#fbfdfc;
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  align-items:center;
+}
+.slip .s-name{font-weight:700;color:var(--ink)}
+.slip .s-detail{font-size:.85rem;color:var(--muted)}
+.slip .s-pin{
+  font-family:'Archivo Black',Arial,sans-serif;font-size:1.15rem;
+  color:var(--green-deep);letter-spacing:1px;
+}
+
+/* ============================================================
+   9. RESPONSIVE
+   ============================================================ */
+@media(max-width:760px){
+  .fgrid,.fgrid-3{grid-template-columns:1fr}
+  .sheet{padding:1.3rem 1rem}
+  .sheet-meta{grid-template-columns:1fr 1fr}
+  .portal-nav{top:0;position:static}
+  .portal-top{position:static}
+  .pm-head h1{font-size:1.25rem}
+  .login-card{padding:1.8rem 1.3rem 1.5rem}
+}
+@media(max-width:460px){
+  .sheet-meta{grid-template-columns:1fr}
+  .sheet-head{flex-wrap:wrap}
+  .sheet-head .sh-term{margin-left:0;text-align:left;width:100%}
+}
+
+/* ============================================================
+   10. PRINT — clean result sheet & PIN slips only
+   ============================================================ */
+@media print{
+  body{background:#fff}
+  .no-print,.portal-top,.portal-nav,.sheet-actions,.flash,.pm-actions{display:none !important}
+  .portal-main{padding:0;max-width:none}
+  .panel,.sheet,.tile{box-shadow:none;border-color:#bbb}
+  .sheet{border-radius:0;border:0;padding:0}
+  .sheet-table th{background:#075c2e !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sheet-table .tot-row td{background:#e7f2ec !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .slip{page-break-inside:avoid}
+  a[href]:after{content:''}
+}
