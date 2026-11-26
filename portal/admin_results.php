@@ -219,3 +219,77 @@ $selfQS = 'term_id=' . $viewTerm . '&class_id=' . $viewClass;
 <main class="portal-main">
 
 <?php if ($error`!== '') { ?>`
+
+<div class="ar-actions">
+<a class="ar-btn ghost" href="admin_results.php?<?php echo h($selfQS); ?>&view=master">← Back to Master Sheet</a>
+<button class="ar-btn" type="button" onclick="window.print()">🖨️ Print this sheet</button>
+</div>
+
+<div class="ar-sheetwrap">
+<div class="sheet">
+<div class="ar-sheethead">
+<img src="../images/school-logo.png" alt="School logo">
+<h2><?php echo h($school1 . ' ' . $school2); ?></h2>
+<p>TERMINAL REPORT SHEET — <?php echo $termRow ? h($termRow['name']) : ''; ?></p>
+<?php if ($unpub > 0) { ?>
+<p><span class="pill warn">Preview — <?php echo $unpub; ?> subject<?php echo $unpub === 1 ? '' : 's'; ?> not yet published</span></p>
+<?php } ?>
+</div>
+
+<div class="ar-meta">
+<span>Name: <b><?php echo h($sheetStudent['full_name']); ?></b></span>
+<span>Exam No: <b><?php echo h($sheetStudent['exam_no']); ?></b></span>
+<span>Class: <b><?php echo h($sheetStudent['class_name']); ?></b></span>
+<span>Position: <b><?php echo isset($positions[$sid]) ? posLabel($positions[$sid]) . ' of ' . $nWithScores : '—'; ?></b></span>
+</div>
+
+<table class="ptable ar-master">
+<thead>
+<tr>
+<th class="ar-name">Subject</th>
+<th>CA 1</th><th>CA 2</th><th>Exam</th>
+<th>Total (100)</th><th>Grade</th><th>Remark</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($subjectCols as $subId => $subName) { ?>
+<tr>
+<td class="ar-name"><?php echo h($subName); ?></td>
+<?php if (isset($entries[$subId])) {
+$r = $entries[$subId]; $t = resultTotal($r); $gp = gradePair($t); ?>
+<td><?php echo fmt($r['ca1']); ?></td>
+<td><?php echo fmt($r['ca2']); ?></td>
+<td><?php echo fmt($r['exam']); ?></td>
+<td><strong><?php echo fmt($t); ?></strong></td>
+<td><span class="pill <?php echo gradePill($gp[0]); ?>"><?php echo h($gp[0]); ?></span></td>
+<td><?php echo h($gp[1]); ?></td>
+<?php } else { ?>
+<td colspan="6">—</td>
+<?php } ?>
+</tr>
+<?php } ?>
+<tr>
+<td class="ar-name"><strong>Overall</strong></td>
+<td colspan="3"></td>
+<td><strong><?php echo $cnt ? fmt($tot) : '—'; ?></strong></td>
+<td><span class="pill <?php echo gradePill($ov[0]); ?>"><?php echo $cnt ? h($ov[0]) : '—'; ?></span></td>
+<td><strong>Average: <?php echo $cnt ? fmt($avg) . '%' : '—'; ?></strong></td>
+</tr>
+</tbody>
+</table>
+
+<p class="ar-key">Grading: A = 70–100 (Excellent) · B = 60–69 (Very Good) · C = 50–59 (Credit) · D = 45–49 (Merit) · E = 40–44 (Pass) · F = Below 40 (Fail). CA 1 + CA 2 + Exam = 100.</p>
+
+<div class="ar-sig">
+<div><i></i>Class Teacher</div>
+<div><i></i>Principal</div>
+<div><i></i>Date</div>
+</div>
+</div>
+</div>
+
+<?php } ?>
+
+</main>
+</body>
+</html>
