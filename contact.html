@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Iriebe Town Secondary School (UBE)</title>
+  <meta name="description" content="Contact Iriebe Town Secondary School (UBE), Iriebe Town, Port Harcourt — address, phone, email, social media and office hours.">
+  <link rel="icon" href="images/school-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ================= HEADER (identical on every page) ================= -->
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="images/school-logo.png" alt="School logo" data-edit-img="logo">
+        <span class="brand-name">
+          <strong data-edit="school-name">IRIEBE TOWN SECONDARY SCHOOL (UBE)</strong>
+          <span data-edit="school-motto">Knowledge • Discipline • Excellence</span>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+          <li><a class="nav-result" href="portal/login.php">Check Result</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= ANNOUNCEMENT TICKER ================= -->
+  <div class="ticker">
+    <span class="ticker-label">📢 Latest</span>
+    <div class="ticker-track"><span data-edit="ticker">Welcome to Iriebe Town Secondary School (UBE) — Admission is in progress for the new session — Check your child's result online with exam number and PIN.</span></div>
+  </div>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 data-edit="contact-hero-title">Contact Us</h1>
+      <p data-edit="contact-hero-sub">We are always happy to hear from parents, guardians and the community.</p>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT CARDS ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-3">
+        <div class="card">
+          <h3>📍 Visit Us</h3>
+          <p data-edit="footer-address">Iriebe Town, Obio/Akpor LGA, Port Harcourt, Rivers State, Nigeria.</p>
+        </div>
+        <div class="card">
+          <h3>📞 Call Us</h3>
+          <p data-edit="footer-phone">Phone: [school phone number]</p>
+          <p data-edit="contact-hours">Office hours: Monday – Friday, 7:30am – 2:00pm</p>
+        </div>
+        <div class="card">
+          <h3>✉️ Email Us</h3>
+          <p data-edit="footer-email">Email: [school email address]</p>
+          <p data-edit="contact-reply-note">We reply messages within one working day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOCIAL MEDIA ================= -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="section-title" data-edit="contact-social-title">Follow Us on Social Media</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>📘 Facebook</h3>
+          <p><a href="https://facebook.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-facebook">@IriebeTownSecSch</a></p>
+        </div>
+        <div class="card">
+          <h3>📸 Instagram</h3>
+          <p><a href="https://instagram.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-instagram">@IriebeTownSecSch</a></p>
+        </div>
+        <div class="card">
+          <h3>🐦 X (Twitter)</h3>
+          <p><a href="https://x.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-x">@IriebeTownSecSch</a></p>
+        </div>
+        <div class="card">
+          <h3>💬 WhatsApp</h3>
+          <p><a href="https://wa.me/2340000000000" target="_blank" rel="noopener" data-edit="social-whatsapp">Chat with the school office</a></p>
+        </div>
+      </div>
+      <p class="admin-note center">Follow the school for announcements, photos from events and term dates. Handles are placeholders — the Admin updates them from the dashboard once the school's accounts are confirmed.</p>
+    </div>
+  </section>
+
+  <!-- ================= MESSAGE FORM + MAP ================= -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap two-col" style="align-items:start">
+      <div class="card">
+        <h3 data-edit="contact-form-title">Send Us a Message</h3>
+        <form id="contact-form">
+          <div class="form-row">
+            <label for="cf-name">Your name</label>
+            <input type="text" id="cf-name" required>
+          </div>
+          <div class="form-row">
+            <label for="cf-phone">Your phone number</label>
+            <input type="tel" id="cf-phone">
+          </div>
+          <div class="form-row">
+            <label for="cf-message">Your message</label>
+            <textarea id="cf-message" rows="5" required></textarea>
+          </div>
+          <button class="btn" type="submit">Send Message</button>
+          <p class="admin-note">This opens your email app with the message ready to send to the school.</p>
+        </form>
+      </div>
+      <div class="col-media media-empty" style="min-height:340px">
+        <!-- Replace with a Google Maps embed once confirmed, or a photo of the school gate -->
+        <img src="images/school-gate.jpg" alt="The school entrance" data-edit-img="contact-photo">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXTRA BOXES ADDED BY THE ADMIN ================= -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap" data-box-zone="contact"></div>
+  </section>
+
+  <!-- ================= CALL TO ACTION ================= -->
+  <section class="cta-band">
+    <div class="wrap cta-row">
+      <div>
+        <h2 data-edit="contact-cta-title">Checking a result instead?</h2>
+        <p data-edit="contact-cta-sub">Use your child's exam number and PIN on the result portal.</p>
+      </div>
+      <p style="margin:0">
+        <a class="btn btn-light" href="portal/login.php">Check Result</a>
+        <a class="btn btn-light" href="admissions.html">Admissions</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER =================
+       This footer now includes the "Follow Us" social media
+       column. Files 4–7 have the older footer — after File 9
+       I'll give you the same social block as a small patch so
+       every page matches. -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <h3 data-edit="footer-school-name">Iriebe Town Secondary School (UBE)</h3>
+        <p data-edit="footer-address">Iriebe Town, Obio/Akpor LGA, Port Harcourt, Rivers State, Nigeria.</p>
+        <p data-edit="footer-hours">School hours: Monday – Friday, 7:30am – 2:00pm</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="news.html">News &amp; Events</a></li>
+          <li><a href="portal/login.php">Check Result</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p data-edit="footer-phone">📞 Phone: [school phone number]</p>
+        <p data-edit="footer-email">✉️ Email: [school email address]</p>
+        <p><a href="contact.html">Send us a message →</a></p>
+      </div>
+      <div>
+        <h3>Follow Us</h3>
+        <ul class="footer-links">
+          <li>📘 <a href="https://facebook.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-facebook">@IriebeTownSecSch</a></li>
+          <li>📸 <a href="https://instagram.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-instagram">@IriebeTownSecSch</a></li>
+          <li>🐦 <a href="https://x.com/iriebetownsec" target="_blank" rel="noopener" data-edit="social-x">@IriebeTownSecSch</a></li>
+          <li>💬 <a href="https://wa.me/2340000000000" target="_blank" rel="noopener" data-edit="social-whatsapp">WhatsApp the office</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© <span data-year>2026</span> <span data-edit="footer-school-name-2">Iriebe Town Secondary School (UBE)</span>. All rights reserved.</span>
+      <span>Powered by <img class="nt-logo" src="images/new-tech-logo.png" alt="New Tech logo"> New Tech</span>
+    </div>
+  </footer>
+
+  <!-- Opens the visitor's email app with the message pre-filled.
+       Change SCHOOL_EMAIL to the school's real address. -->
+  <script>
+    (function () {
+      var SCHOOL_EMAIL = 'info@iriebetownsec.sch.ng'; // ← school's real email goes here
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('cf-name').value.trim();
+        var phone = document.getElementById('cf-phone').value.trim();
+        var msg = document.getElementById('cf-message').value.trim();
+        var subject = 'Message from the school website — ' + name;
+        var body = msg + '\n\n— ' + name + (phone ? ' (' + phone + ')' : '');
+        window.location.href = 'mailto:' + SCHOOL_EMAIL +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+      });
+    })();
+  </script>
+
+</body>
+</html>
