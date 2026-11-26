@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News &amp; Events — Iriebe Town Secondary School (UBE)</title>
+  <meta name="description" content="Latest news and upcoming events at Iriebe Town Secondary School (UBE), Iriebe Town, Port Harcourt.">
+  <link rel="icon" href="images/school-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ================= HEADER (identical on every page) ================= -->
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="images/school-logo.png" alt="School logo" data-edit-img="logo">
+        <span class="brand-name">
+          <strong data-edit="school-name">IRIEBE TOWN SECONDARY SCHOOL (UBE)</strong>
+          <span data-edit="school-motto">Knowledge • Discipline • Excellence</span>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="news.html" aria-current="page">News</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-result" href="portal/login.php">Check Result</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= ANNOUNCEMENT TICKER ================= -->
+  <div class="ticker">
+    <span class="ticker-label">📢 Latest</span>
+    <div class="ticker-track"><span data-edit="ticker">Welcome to Iriebe Town Secondary School (UBE) — Admission is in progress for the new session — Check your child's result online with exam number and PIN.</span></div>
+  </div>
+
+  <!-- ================= PAGE HERO ================= -->
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 data-edit="news-hero-title">News &amp; Events</h1>
+      <p data-edit="news-hero-sub">Announcements, stories and dates to remember from across the school.</p>
+    </div>
+  </section>
+
+  <!-- ================= NEWS CARDS =================
+       The starter cards below show until the Admin posts news
+       from the dashboard. Once the Admin saves news, script.js
+       replaces this container's contents automatically. -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title" data-edit="news-list-title">Latest News</h2>
+      <div class="news-grid" data-news-list>
+        <article class="news-card">
+          <span class="news-date">November 2026</span>
+          <h3>Admission in Progress</h3>
+          <p>Admission into JSS 1–3 is open for the new session. Visit the school office to collect a form — see the Admissions page for the full process.</p>
+        </article>
+        <article class="news-card">
+          <span class="news-date">November 2026</span>
+          <h3>Results Now Online</h3>
+          <p>Parents can now check termly results on this website using the student's exam number and PIN. Visit the school office to collect your child's PIN.</p>
+        </article>
+        <article class="news-card">
+          <span class="news-date">November 2026</span>
+          <h3>Inter-House Sports</h3>
+          <p>Our annual inter-house sports competition is coming soon. Students should register with their house captains; parents are warmly invited to attend.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= UPCOMING EVENTS ================= -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="section-title" data-edit="news-events-title">Upcoming Events</h2>
+      <div class="card">
+        <ul class="list-check">
+          <li data-edit="news-event-1"><strong>End of Term Examinations</strong> — all classes write their end-of-term papers; results follow on the portal.</li>
+          <li data-edit="news-event-2"><strong>Open Day</strong> — parents are invited to meet teachers and discuss their children's progress.</li>
+          <li data-edit="news-event-3"><strong>Inter-House Sports</strong> — houses compete in track and field events on the school field.</li>
+          <li data-edit="news-event-4"><strong>Prize-Giving &amp; Graduation</strong> — we celebrate our best students and send off the JSS 3 class.</li>
+        </ul>
+        <p class="admin-note">Dates are announced through the ticker at the top of the site and at morning assembly. The Admin updates this list from the dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXTRA BOXES ADDED BY THE ADMIN ================= -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap" data-box-zone="news"></div>
+  </section>
+
+  <!-- ================= CALL TO ACTION ================= -->
+  <section class="cta-band">
+    <div class="wrap cta-row">
+      <div>
+        <h2 data-edit="news-cta-title">Never miss an announcement</h2>
+        <p data-edit="news-cta-sub">The scrolling ticker at the top of every page always carries the latest news.</p>
+      </div>
+      <p style="margin:0">
+        <a class="btn btn-light" href="index.html">Back to Home</a>
+        <a class="btn btn-light" href="contact.html">Contact Us</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER (identical on every page) ================= -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <h3 data-edit="footer-school-name">Iriebe Town Secondary School (UBE)</h3>
+        <p data-edit="footer-address">Iriebe Town, Obio/Akpor LGA, Port Harcourt, Rivers State, Nigeria.</p>
+        <p data-edit="footer-hours">School hours: Monday – Friday, 7:30am – 2:00pm</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="news.html">News &amp; Events</a></li>
+          <li><a href="portal/login.php">Check Result</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p data-edit="footer-phone">📞 Phone: [school phone number]</p>
+        <p data-edit="footer-email">✉️ Email: [school email address]</p>
+        <p><a href="contact.html">Send us a message →</a></p>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© <span data-year>2026</span> <span data-edit="footer-school-name-2">Iriebe Town Secondary School (UBE)</span>. All rights reserved.</span>
+      <span>Powered by <img class="nt-logo" src="images/new-tech-logo.png" alt="New Tech logo"> New Tech</span>
+    </div>
+  </footer>
+
+</body>
+</html>
