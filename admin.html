@@ -1,506 +1,621 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard — Iriebe Town Secondary School (UBE)</title>
-  <meta name="robots" content="noindex, nofollow">
-  <style>
-    :root{
-      --green:#0d7a3f; --green-deep:#075c2e; --green-night:#04331b;
-      --mint:#bfe8d2; --mint-soft:#e8f7ef; --mint-mid:#7fceab;
-      --red:#e02424; --gold:#f0b429;
-      --ink:#16241c; --grey:#5a6b60; --white:#ffffff; --off:#f7faf8;
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:Arial, Helvetica, sans-serif;
-      background:var(--off);color:var(--ink);line-height:1.6;
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap{width:min(980px,92%);margin-inline:auto}
-
-    /* ---------- Login gate ---------- */
-    .gate{
-      min-height:100vh;display:flex;align-items:center;justify-content:center;
-      background:
-        radial-gradient(900px 460px at 85% -10%, rgba(127,206,171,.18), transparent 60%),
-        linear-gradient(160deg, var(--green-night), #02180d);
-      padding:2rem 0;
-    }
-    .gate-card{
-      background:#fff;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.35);
-      padding:2.6rem 2.4rem;width:min(420px,92%);
-      border-top:6px solid var(--green);text-align:center;
-    }
-    .gate-card .crest{
-      width:64px;height:64px;border-radius:50%;
-      background:var(--mint-soft);color:var(--green);
-      display:inline-flex;align-items:center;justify-content:center;
-      font-weight:900;font-size:1.2rem;margin-bottom:1rem;
-      border:3px solid var(--mint);
-    }
-    .gate-card h1{font-size:1.25rem;color:var(--green-deep);margin-bottom:.3rem}
-    .gate-card p{color:var(--grey);font-size:.92rem;margin-bottom:1.4rem}
-    .gate-card input{
-      width:100%;padding:.85rem 1rem;font-size:1rem;
-      border:1.5px solid var(--mint-mid);border-radius:10px;
-      margin-bottom:1rem;text-align:center;letter-spacing:2px;
-    }
-    .gate-card input:focus{outline:none;border-color:var(--green);
-      box-shadow:0 0 0 4px rgba(13,122,63,.12)}
-    .gate-error{color:var(--red);font-weight:700;font-size:.9rem;
-      min-height:1.4em;margin-top:.6rem}
-
-    /* ---------- Buttons ---------- */
-    .btn{
-      display:inline-flex;align-items:center;gap:.5rem;
-      background:linear-gradient(135deg,var(--green),var(--green-deep));
-      color:#fff;font-weight:700;border:none;cursor:pointer;
-      padding:.8rem 1.6rem;border-radius:50px;font-size:.95rem;
-      box-shadow:0 8px 20px rgba(13,122,63,.3);
-      transition:transform .2s ease, box-shadow .2s ease;
-      text-decoration:none;
-    }
-    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(13,122,63,.4)}
-    .btn-block{width:100%;justify-content:center}
-    .btn-outline{
-      background:#fff;color:var(--green-deep);
-      border:2px solid var(--mint-mid);box-shadow:none;
-    }
-    .btn-outline:hover{border-color:var(--green)}
-    .btn-danger{
-      background:#fff;color:var(--red);border:2px solid #f3b8b8;box-shadow:none;
-    }
-    .btn-danger:hover{border-color:var(--red)}
-
-    /* ---------- Dashboard shell ---------- */
-    .topbar{
-      background:linear-gradient(135deg,var(--green-deep),var(--green));
-      color:#fff;padding:1rem 0;position:sticky;top:0;z-index:50;
-      box-shadow:0 4px 18px rgba(4,51,27,.25);
-    }
-    .topbar-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-    .topbar h1{font-size:1.1rem;letter-spacing:.4px}
-    .topbar .sub{font-size:.8rem;color:var(--mint);display:block}
-    .topbar-actions{margin-left:auto;display:flex;gap:.6rem;flex-wrap:wrap}
-    .topbar-actions .btn{padding:.55rem 1.1rem;font-size:.85rem}
-
-    .notice-info{
-      background:#fff8e6;border:1px solid var(--gold);border-radius:12px;
-      padding:1rem 1.2rem;margin:1.6rem 0;font-size:.92rem;color:#7a5b00;
-    }
-
-    fieldset{
-      background:#fff;border:1px solid #e2efe8;border-radius:14px;
-      padding:1.6rem 1.5rem;margin-bottom:1.4rem;
-      box-shadow:0 6px 18px rgba(4,51,27,.06);
-    }
-    legend{
-      font-weight:900;color:var(--green-deep);font-size:1.02rem;
-      padding:0 .6rem;letter-spacing:.3px;
-    }
-    .field{margin-bottom:1.1rem}
-    .field:last-child{margin-bottom:0}
-    .field label{
-      display:block;font-weight:700;font-size:.88rem;
-      color:var(--green-deep);margin-bottom:.35rem;
-    }
-    .field .hint{display:block;font-weight:400;font-size:.78rem;color:var(--grey)}
-    .field input,.field textarea{
-      width:100%;font-family:inherit;font-size:.98rem;
-      padding:.75rem .9rem;border:1.5px solid var(--mint-mid);
-      border-radius:10px;background:var(--off);resize:vertical;
-      transition:border-color .2s ease, box-shadow .2s ease;
-    }
-    .field input:focus,.field textarea:focus{
-      outline:none;border-color:var(--green);
-      box-shadow:0 0 0 4px rgba(13,122,63,.12);background:#fff;
-    }
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    @media(max-width:640px){.grid-2{grid-template-columns:1fr}}
-
-    .savebar{
-      position:sticky;bottom:0;z-index:40;
-      background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
-      border-top:1px solid #dfeeda;
-      padding:.9rem 0;margin-top:1.5rem;
-    }
-    .savebar-inner{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-    .save-status{font-weight:700;font-size:.92rem;min-height:1.3em}
-    .save-status.ok{color:var(--green)}
-    .save-status.err{color:var(--red)}
-
-    .hidden{display:none !important}
-    .footer-note{
-      text-align:center;color:var(--grey);font-size:.82rem;
-      padding:1.6rem 0 2.4rem;
-    }
-  </style>
+  <title>Admin — Site Builder | Iriebe Town Secondary School (UBE)</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="images/school-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ============ LOGIN GATE ============ -->
-  <div class="gate" id="gate">
-    <form class="gate-card" id="gateForm" autocomplete="off">
-      <span class="crest">IT</span>
-      <h1>Admin Dashboard</h1>
-      <p>Iriebe Town Secondary School (UBE)<br>Enter the admin passcode to continue.</p>
-      <input type="password" id="gatePass" placeholder="Passcode" required>
-      <button type="submit" class="btn btn-block">Sign In</button>
-      <p class="gate-error" id="gateError"></p>
-    </form>
+  <!-- ================= PASSCODE GATE ================= -->
+  <div id="gate" style="max-width:420px;margin:8vh auto;padding:0 18px">
+    <div class="card" style="text-align:center">
+      <img src="images/school-logo.png" alt="School logo" style="width:64px;height:64px;border-radius:50%;margin-bottom:10px" onerror="this.style.display='none'">
+      <h3 style="margin-bottom:6px">Admin — Site Builder</h3>
+      <p class="admin-note" style="margin-bottom:14px">Enter the admin passcode to edit the website.<br>Parents and visitors never see this page.</p>
+      <div class="form-row" style="text-align:left">
+        <label for="gate-pass">Passcode</label>
+        <input type="password" id="gate-pass" autocomplete="current-password">
+      </div>
+      <button class="btn" id="gate-btn" style="width:100%">Enter Dashboard</button>
+      <p class="admin-note" id="gate-error" style="color:#b3261e;display:none">Wrong passcode — try again.</p>
+      <p style="margin-top:14px"><a href="index.html">← Back to the website</a></p>
+    </div>
   </div>
 
-  <!-- ============ DASHBOARD ============ -->
-  <div id="dashboard" class="hidden">
+  <!-- ================= DASHBOARD (hidden until passcode) ================= -->
+  <div id="shell" class="admin-shell" style="display:none;padding-bottom:90px">
 
-    <header class="topbar">
-      <div class="wrap topbar-inner">
-        <div>
-          <h1>Website Admin Dashboard</h1>
-          <span class="sub">Iriebe Town Secondary School (UBE) — edit the words on your website without touching code</span>
-        </div>
-        <div class="topbar-actions">
-          <a class="btn btn-outline" href="index.html" target="_blank" rel="noopener">View Website ↗</a>
-          <button class="btn btn-danger" id="logoutBtn" type="button">Log Out</button>
-        </div>
-      </div>
-    </header>
+    <div class="admin-head">
+      <h1>🛠️ Site Builder</h1>
+      <p style="margin:0;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn btn-light" href="index.html" target="_blank" style="border:1px solid var(--line)">👁️ View site</a>
+        <a class="btn btn-light" href="portal/admin.php" style="border:1px solid var(--line)">📊 Result portal admin</a>
+        <button class="btn" id="logout-btn" style="background:#7a1f1f">Log out</button>
+      </p>
+    </div>
 
-    <main class="wrap">
+    <div class="admin-saved" id="saved-banner"></div>
 
-      <div class="notice-info">
-        <strong>How saving works:</strong> pressing <strong>Save Changes</strong> updates the website
-        <strong>instantly on this computer/browser</strong>. To make the changes appear for
-        <strong>every visitor</strong>, click <strong>Download content.json</strong> after saving and
-        upload that file to the same folder as <em>index.html</em> on your web host.
-      </div>
+    <div class="admin-tabs" id="tabs">
+      <button data-pane="appearance" class="on">🎨 Appearance</button>
+      <button data-pane="photos">🖼️ Photos</button>
+      <button data-pane="text">📝 Page Text</button>
+      <button data-pane="boxes">🧱 Content Boxes</button>
+      <button data-pane="news">📰 News</button>
+      <button data-pane="ticker">📢 Ticker &amp; Stats</button>
+      <button data-pane="contact">📞 Contact &amp; Social</button>
+    </div>
 
-      <form id="adminForm" autocomplete="off">
-
-        <fieldset>
-          <legend>School Name (top bar &amp; branding)</legend>
-          <div class="grid-2">
-            <div class="field">
-              <label for="schoolName1">Name — first line</label>
-              <input type="text" id="schoolName1" data-key="schoolName1">
-            </div>
-            <div class="field">
-              <label for="schoolName2">Name — second line</label>
-              <input type="text" id="schoolName2" data-key="schoolName2">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Hero Section (top of homepage)</legend>
-          <div class="field">
-            <label for="heroTitle">Big headline
-              <span class="hint">Press Enter for a line break, e.g. "Leadership with" ↵ "Distinction"</span>
-            </label>
-            <textarea id="heroTitle" data-key="heroTitle" rows="2"></textarea>
-          </div>
-          <div class="field">
-            <label for="heroSub">Sentence under the headline</label>
-            <textarea id="heroSub" data-key="heroSub" rows="2"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Red Notice Strip</legend>
-          <div class="field">
-            <label for="noticeText">Announcement text</label>
-            <textarea id="noticeText" data-key="noticeText" rows="2"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>About the School</legend>
-          <div class="field">
-            <label for="aboutP1">First paragraph</label>
-            <textarea id="aboutP1" data-key="aboutP1" rows="4"></textarea>
-          </div>
-          <div class="field">
-            <label for="aboutP2">Second paragraph</label>
-            <textarea id="aboutP2" data-key="aboutP2" rows="4"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Head Teacher's Welcome</legend>
-          <div class="field">
-            <label for="htMsg">Welcome message</label>
-            <textarea id="htMsg" data-key="htMsg" rows="5"></textarea>
-          </div>
-          <div class="grid-2">
-            <div class="field">
-              <label for="htName">Head Teacher's name</label>
-              <input type="text" id="htName" data-key="htName">
-            </div>
-            <div class="field">
-              <label for="htRole">Title (e.g. Head Teacher)</label>
-              <input type="text" id="htRole" data-key="htRole">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>News Headlines (3 cards)</legend>
-          <div class="field">
-            <label for="news1">News card 1</label>
-            <input type="text" id="news1" data-key="news1">
-          </div>
-          <div class="field">
-            <label for="news2">News card 2</label>
-            <input type="text" id="news2" data-key="news2">
-          </div>
-          <div class="field">
-            <label for="news3">News card 3</label>
-            <input type="text" id="news3" data-key="news3">
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Admission Banner (pink section)</legend>
-          <div class="field">
-            <label for="applyTitle">Banner heading</label>
-            <input type="text" id="applyTitle" data-key="applyTitle">
-          </div>
-          <div class="field">
-            <label for="applyText">Banner text</label>
-            <textarea id="applyText" data-key="applyText" rows="3"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Contact Details</legend>
-          <div class="field">
-            <label for="contactAddress">Address</label>
-            <input type="text" id="contactAddress" data-key="contactAddress">
-          </div>
-          <div class="grid-2">
-            <div class="field">
-              <label for="contactPhone">Phone</label>
-              <input type="text" id="contactPhone" data-key="contactPhone">
-            </div>
-            <div class="field">
-              <label for="contactEmail">Email</label>
-              <input type="text" id="contactEmail" data-key="contactEmail">
-            </div>
-          </div>
-          <div class="field">
-            <label for="contactHours">School hours</label>
-            <input type="text" id="contactHours" data-key="contactHours">
-          </div>
-        </fieldset>
-
-      </form>
-
-      <fieldset>
-        <legend>Backup &amp; Restore</legend>
-        <div class="grid-2">
-          <div class="field">
-            <label>Download content.json
-              <span class="hint">Save the current wording as a file — upload it next to index.html so every visitor sees it</span>
-            </label>
-            <button type="button" class="btn btn-outline" id="exportBtn">Download content.json</button>
-          </div>
-          <div class="field">
-            <label for="importFile">Restore from a content.json file
-              <span class="hint">Pick a previously downloaded file to load its wording here</span>
-            </label>
-            <input type="file" id="importFile" accept=".json,application/json">
-          </div>
-        </div>
-        <div class="field" style="margin-top:.6rem">
-          <label>Start over
-            <span class="hint">Remove every change made on this browser and return to the original wording</span>
+    <!-- ============ TAB 1: APPEARANCE ============ -->
+    <div class="admin-pane on" id="pane-appearance">
+      <div class="card">
+        <h3>Site Colors</h3>
+        <p class="admin-note">Pick new colors — every page changes at once after you save. The preview below shows your combination.</p>
+        <div class="color-row" style="margin-top:12px">
+          <label class="color-pick">Main green
+            <input type="color" data-color="--green" value="#0f6b3f">
           </label>
-          <button type="button" class="btn btn-danger" id="resetBtn">Reset All Changes</button>
+          <label class="color-pick">Dark green
+            <input type="color" data-color="--green-dark" value="#0a4a2a">
+          </label>
+          <label class="color-pick">Deep green (footer)
+            <input type="color" data-color="--green-deep" value="#06331d">
+          </label>
+          <label class="color-pick">Gold accent
+            <input type="color" data-color="--gold" value="#f2b01e">
+          </label>
         </div>
-      </fieldset>
-
-    </main>
-
-    <div class="savebar">
-      <div class="wrap savebar-inner">
-        <button type="button" class="btn" id="saveBtn">💾 Save Changes</button>
-        <span class="save-status" id="saveStatus"></span>
+        <div class="admin-preview">
+          <div class="ap-band" id="ap-band" style="background:var(--green)">
+            <strong>Preview:</strong> headings, buttons and banners use these colors.
+            <span class="ap-btn" id="ap-btn" style="background:var(--green-dark)">Check Result</span>
+            <span class="ap-btn" id="ap-btn2" style="background:var(--gold);color:var(--green-deep)">Latest</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>School Logo</h3>
+        <p class="admin-note">Shown in the header of every page. Upload a square PNG/JPG for best results (about 300×300). This is the same slot as the <strong>logo</strong> entry on the Photos tab.</p>
+        <div id="logo-slot"></div>
       </div>
     </div>
 
-    <p class="footer-note">Iriebe Town Secondary School (UBE) — Admin · Built by New Technologies</p>
-  </div>
+    <!-- ============ TAB 2: PHOTOS ============ -->
+    <div class="admin-pane" id="pane-photos">
+      <div class="card">
+        <h3>Website Photos</h3>
+        <p class="admin-note">
+          For each photo slot, either <strong>upload a picture</strong> (kept inside your settings — keep each under ~800 KB)
+          or <strong>type its path</strong> after uploading the file to the <code>images/</code> folder (e.g. via GitHub).
+          Clear both and save to remove a photo — the page shows its green placeholder again.
+        </p>
+      </div>
+      <div id="photo-slots"></div>
+    </div>
+
+    <!-- ============ TAB 3: PAGE TEXT ============ -->
+    <div class="admin-pane" id="pane-text">
+      <div class="card">
+        <h3>Page Text</h3>
+        <p class="admin-note">Every changeable text on the site, page by page. <strong>Leave a field empty to keep the text already built into the page.</strong> Use the filter to find one quickly.</p>
+        <div class="form-row" style="margin-top:10px">
+          <input type="text" id="text-filter" placeholder="🔍 Filter fields… (e.g. mission, step, motto)">
+        </div>
+      </div>
+      <div id="text-fields"></div>
+    </div>
+
+    <!-- ============ TAB 4: CONTENT BOXES ============ -->
+    <div class="admin-pane" id="pane-boxes">
+      <div class="card">
+        <h3>Add a Box</h3>
+        <p class="admin-note">Boxes appear at the bottom of the page you choose — above the green call-to-action band. Use them for announcements, reminders, exam timetables… anything.</p>
+        <div class="form-row">
+          <label for="box-zone">Show this box on</label>
+          <select id="box-zone">
+            <option value="home">Home page</option>
+            <option value="about">About page</option>
+            <option value="academics">Academics page</option>
+            <option value="admissions">Admissions page</option>
+            <option value="news">News page</option>
+            <option value="contact">Contact page</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="box-title">Box title</label>
+          <input type="text" id="box-title" placeholder="e.g. Mid-term Break">
+        </div>
+        <div class="form-row">
+          <label for="box-body">Box text</label>
+          <textarea id="box-body" rows="3" placeholder="e.g. School closes on Friday 27 November and resumes on Monday 7 December."></textarea>
+        </div>
+        <button class="btn" id="box-add">➕ Add Box</button>
+        <button class="btn btn-light" id="box-cancel" style="display:none;border:1px solid var(--line)">Cancel edit</button>
+      </div>
+      <div id="box-list"></div>
+    </div>
+
+    <!-- ============ TAB 5: NEWS ============ -->
+    <div class="admin-pane" id="pane-news">
+      <div class="card">
+        <h3>Post News</h3>
+        <p class="admin-note">News cards appear on the News page — and on the homepage once the homepage patch is applied. Until you post your first card, the pages show their built-in starter cards.</p>
+        <div class="form-row">
+          <label for="news-date">Date label</label>
+          <input type="text" id="news-date" placeholder="e.g. 25 November 2026">
+        </div>
+        <div class="form-row">
+          <label for="news-title">Headline</label>
+          <input type="text" id="news-title" placeholder="e.g. Third Term Results Are Out">
+        </div>
+        <div class="form-row">
+          <label for="news-body">Story</label>
+          <textarea id="news-body" rows="3" placeholder="e.g. Parents can now check third term results on this website using the exam number and PIN."></textarea>
+        </div>
+        <button class="btn" id="news-add">➕ Post News</button>
+        <button class="btn btn-light" id="news-cancel" style="display:none;border:1px solid var(--line)">Cancel edit</button>
+      </div>
+      <div id="news-list"></div>
+    </div>
+
+    <!-- ============ TAB 6: TICKER & STATS ============ -->
+    <div class="admin-pane" id="pane-ticker">
+      <div class="card">
+        <h3>📢 Scrolling Announcement (ticker)</h3>
+        <p class="admin-note">Runs along the top of every page. Separate announcements with a dash (—). Leave empty to show the built-in default.</p>
+        <div class="form-row" style="margin-top:10px">
+          <textarea id="f-ticker" rows="3" placeholder="Welcome to Iriebe Town Secondary School (UBE) — Admission is in progress for the new session — Check your child's result online with exam number and PIN."></textarea>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📊 Homepage Numbers (stats band)</h3>
+        <p class="admin-note">The big gold numbers on the homepage. Leave any empty to keep the current one. (These appear once the homepage patch is applied.)</p>
+        <div class="grid-3" style="margin-top:10px">
+          <div class="form-row"><label>Students</label><input type="text" id="f-stat-students" placeholder="e.g. 520"></div>
+          <div class="form-row"><label>Teachers</label><input type="text" id="f-stat-teachers" placeholder="e.g. 24"></div>
+          <div class="form-row"><label>Classes</label><input type="text" id="f-stat-classes" placeholder="e.g. 12"></div>
+          <div class="form-row"><label>Pass rate</label><input type="text" id="f-stat-passrate" placeholder="e.g. 98%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TAB 7: CONTACT & SOCIAL ============ -->
+    <div class="admin-pane" id="pane-contact">
+      <div class="card">
+        <h3>Contact Details</h3>
+        <p class="admin-note">Shown in the footer of every page and on the Contact page. Leave empty to keep the built-in text.</p>
+        <div class="form-row"><label>Address</label><input type="text" id="f-footer-address" placeholder="Iriebe Town, Obio/Akpor LGA, Port Harcourt, Rivers State, Nigeria."></div>
+        <div class="form-row"><label>School hours</label><input type="text" id="f-footer-hours" placeholder="School hours: Monday – Friday, 7:30am – 2:00pm"></div>
+        <div class="form-row"><label>Phone line (footer text)</label><input type="text" id="f-footer-phone" placeholder="📞 Phone: 0803 000 0000"></div>
+        <div class="form-row"><label>Email line (footer text)</label><input type="text" id="f-footer-email" placeholder="✉️ Email: info@iriebetownsec.sch.ng"></div>
+      </div>
+      <div class="card">
+        <h3>Social Media Handles</h3>
+        <p class="admin-note">Shown on the Contact page and in the footer "Follow Us" column. Leave empty to keep the current handle.</p>
+        <div class="form-row"><label>Facebook</label><input type="text" id="f-social-facebook" placeholder="@IriebeTownSecSch"></div>
+        <div class="form-row"><label>Instagram</label><input type="text" id="f-social-instagram" placeholder="@IriebeTownSecSch"></div>
+        <div class="form-row"><label>X (Twitter)</label><input type="text" id="f-social-x" placeholder="@IriebeTownSecSch"></div>
+        <div class="form-row"><label>WhatsApp line</label><input type="text" id="f-social-whatsapp" placeholder="Chat with the school office"></div>
+        <p class="admin-note">⚠️ Changing a handle here updates the <em>text visitors see</em>. The actual links (facebook.com/…, wa.me/…) live in the page code — tell me the real handles and I'll update the links themselves, one line each.</p>
+      </div>
+    </div>
+
+    <!-- ============ ADVANCED: BACKUP & RESET ============ -->
+    <div class="card" style="margin-top:26px">
+      <h3>⚙️ Advanced — Backup &amp; Reset</h3>
+      <p class="admin-note">Download your settings as a file (keep it safe, or move them to another computer), or restore from a backup.</p>
+      <p style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+        <button class="btn btn-light" id="backup-btn" style="border:1px solid var(--line)">⬇️ Download backup</button>
+        <label class="btn btn-light" style="border:1px solid var(--line);margin:0;cursor:pointer">⬆️ Restore backup<input type="file" id="restore-input" accept=".json,application/json" hidden></label>
+        <button class="btn btn-light" id="reset-btn" style="border:1px solid var(--line);color:#7a1f1f">🗑️ Reset all changes</button>
+      </p>
+      <p class="admin-note" id="backup-note"></p>
+    </div>
+
+    <!-- ============ FIXED SAVE BAR ============ -->
+    <div class="savebar">
+      <button class="btn" id="save-btn">💾 Save All Changes</button>
+      <span class="admin-note" id="save-note" style="margin:0"></span>
+    </div>
+
+  </div><!-- /#shell -->
+
+  <!-- Dashboard-only styles (independent of styles.css so this page always works) -->
+  <style>
+    body{background:#f4f6f4}
+    .admin-shell{max-width:1080px;margin:0 auto;padding:22px 16px}
+    .admin-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+    .admin-head h1{margin:0;font-size:1.5rem;color:var(--green-deep,#06331d)}
+    .admin-s`aved{display:none;background:#e8f5ee;border:1px solid #bfe3cf;color:#0a4a2a;padding:10px 14px;border-radius:10px;margin-bottom:14px;font-size:.92rem}
+    .admin-saved.warn{background:#fdf3e3;border-color:#f0d9a8;color:#7a5510}
+    .admin-note{font-size:.85rem;color:#667}
+    .admin-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+    .admin-tabs button{border:1px solid var(--line,#d8e2da);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;color:#445}
+    .admin-tabs button.on{background:var(--green,#0f6b3f);border-color:var(--green,#0f6b3f);color:#fff}
+    .admin-pane{display:none}
+    .admin-pane.on{display:block}
+    .form-row{margin-bottom:12px}
+    .form-row label{display:block;font-weight:600;margin-bottom:4px;font-size:.92rem}
+    .form-row input[type=text],.form-row input[type=tel],.form-row input[type=password],.form-row textarea,.form-row select{width:100%;padding:9px 11px;border:1px solid var(--line,#d8e2da);border-radius:8px;font:inherit;background:#fff;box-sizing:border-box}
+    .form-row textarea{resize:vertical}
+    .color-row{display:flex;gap:16px;flex-wrap:wrap}
+    .color-pick{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.9rem}
+    .color-pick input{width:64px;height:40px;border:1px solid var(--line,#d8e2da);border-radius:8px;background:#fff;padding:2px;cursor:pointer}
+    .admin-preview{margin-top:14px}
+    .ap-band{padding:16px;border-radius:10px;color:#fff;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .ap-btn{padding:6px 12px;border-radius:999px;font-weight:700;font-size:.85rem;color:#fff}
+    .photo-slot{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;border:1px solid var(--line,#d8e2da);border-radius:12px;padding:12px;margin-bottom:12px;background:#fff}
+    .ps-img{width:110px;height:80px;object-fit:cover;border-radius:8px;background:#eef3ef;border:1px solid var(--line,#d8e2da)}
+    .ps-body{flex:1;min-width:220px}
+    .ps-body h4{margin:0 0 6px;font-size:.98rem}
+    .ps-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn-mini{border:1px solid var(--line,#d8e2da);background:#fff;border-radius:8px;padding:6px 10px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+    .btn-mini.danger{color:#7a1f1f;border-color:#e3c2c2}
+    .tf-group h3{margin:18px 0 4px}
+    .tf-key{font-size:.72rem;color:#8aa;font-weight:400}
+    .manage-item{border:1px solid var(--line,#d8e2da);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:#fff}
+    .manage-item h4{margin:0 0 4px}
+    .manage-item p{margin:0 0 8px;white-space:pre-wrap}
+    .mi-actions{display:flex;gap:8px}
+    .zone-tag{display:inline-block;background:#eef3ef;border-radius:999px;padding:2px 10px;font-size:.75rem;font-weight:700;color:var(--green,#0f6b3f);margin-bottom:4px}
+    .empty-note{color:#778;font-style:italic}
+    .savebar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line,#d8e2da);padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;box-shadow:0 -4px 18px rgba(0,0,0,.06);z-index:50}
+  </style>
 
   <script>
-    (function () {
-      'use strict';
+  (function () {
+    'use strict';
 
-      var PASSCODE   = 'iriebe2026';
-      var STORAGE_KEY = 'itss_content';   // must match script.js
-      var AUTH_KEY    = 'itss_admin_auth';
+    /* ============ SETTINGS — IMPORTANT ============
+       The storage key and JSON shape below must match what
+       script.js (File 3) reads and what portal/site_settings.php
+       (File 14) serves. If your copy of script.js shows a
+       different key name at its top, change it here too. */
+    var PASSCODE = 'iriebe2026';                 // admin passcode
+    var KEY      = 'itss_site_settings_v1';      // localStorage key
+    var BRIDGE   = 'portal/site_settings.php';   // server save/load bridge (File 14)
 
-      /* Default wording — identical to what is inside index.html,
-         so the form opens pre-filled with the live text. */
-      var DEFAULTS = {
-        schoolName1: 'Iriebe Town',
-        schoolName2: 'Secondary School (UBE)',
-        heroTitle: 'Leadership with\nDistinction',
-        heroSub: 'We focus on dynamic education, holistic development, and building a brighter future for your child and our nation.',
-        noticeText: 'Admission into JSS 1 for the 2026/2027 academic session is now open — visit the school to register your ward.',
-        aboutP1: 'Iriebe Town Secondary School (UBE) is a government secondary school located in Iriebe Town, Port Harcourt, Rivers State, serving the community under the Universal Basic Education programme. The school is committed to providing quality, free and compulsory basic education to every child.',
-        aboutP2: 'With dedicated teachers and a safe learning environment, the school prepares students in the junior secondary classes for success in senior secondary education and beyond, instilling the values of hard work, discipline and service to the community.',
-        htMsg: 'On behalf of the staff and students of Iriebe Town Secondary School (UBE), I warmly welcome you. Our doors are open to every child in Iriebe Town and its neighbouring communities. We believe every child deserves a solid foundation, and we work daily with parents and the community to give our students the discipline, knowledge and confidence to excel.',
-        htName: 'Mr. Chinedu Wokoma',
-        htRole: 'Head Teacher',
-        news1: 'Inter-House Sports Competition',
-        news2: 'Cultural Day Celebration',
-        news3: 'Science Practical Sessions',
-        applyTitle: 'Apply Now: Admission into JSS 1 — 2026/2027 Session',
-        applyText: 'This is to notify the general public that admission into JSS 1 for the 2026/2027 academic session is currently ongoing. Interested parents and guardians are encouraged to visit the school to register their wards.',
-        contactAddress: 'Iriebe Town, Port Harcourt, Rivers State, Nigeria',
-        contactPhone: '+234 800 000 0000',
-        contactEmail: 'info@iriebetownsec.sch.ng',
-        contactHours: 'Monday – Friday, 7:30am – 2:30pm'
+    var PAGES = [
+      { file: 'index.html',      name: 'Home' },
+      { file: 'about.html',      name: 'About' },
+      { file: 'academics.html',  name: 'Academics' },
+      { file: 'admissions.html', name: 'Admissions' },
+      { file: 'news.html',       name: 'News' },
+      { file: 'contact.html',    name: 'Contact' }
+    ];
+    var ZONES = { home: 'Home page', about: 'About page', academics: 'Academics page', admissions: 'Admissions page', news: 'News page', contact: 'Contact page' };
+
+    /* Keys that have their own dedicated tab — kept out of the auto text list */
+    var DEDICATED = {
+      'ticker': 1, 'stat-students': 1, 'stat-teachers': 1, 'stat-classes': 1, 'stat-passrate': 1,
+      'footer-address': 1, 'footer-hours': 1, 'footer-phone': 1, 'footer-email': 1,
+      'social-facebook': 1, 'social-instagram': 1, 'social-x': 1, 'social-whatsapp': 1
+    };
+
+    /* Used only when the pages cannot be scanned (e.g. file:// preview) */
+    var FALLBACK_IMAGES = [
+      { key: 'logo',          label: 'School logo (header, every page)', orig: 'images/school-logo.png' },
+      { key: 'adm-photo',     label: 'Admissions — new students photo',  orig: 'images/admissions-students.jpg' },
+      { key: 'adm-req-photo', label: 'Admissions — documents photo',     orig: 'images/admissions-form.jpg' },
+      { key: 'contact-photo', label: 'Contact — school gate / map photo', orig: 'images/school-gate.jpg' }
+    ];
+    var FALLBACK_TEXTS = [
+      { key: 'school-name',         label: 'School name (header)',            page: 'Every page' },
+      { key: 'school-motto',        label: 'Motto (under school name)',       page: 'Every page' },
+      { key: 'footer-school-name',  label: 'Footer school name (footer column)', page: 'Every page' },
+      { key: 'footer-school-name-2', label: 'Footer school name (copyright line)', page: 'Every page' },
+      { key: 'about-hero-title',    label: 'About — hero title',          page: 'About' },
+      { key: 'about-hero-sub',      label: 'About — hero subtitle',       page: 'About' },
+      { key: 'acad-hero-title',     label: 'Academics — hero title',      page: 'Academics' },
+      { key: 'acad-hero-sub',       label: 'Academics — hero subtitle',   page: 'Academics' },
+      { key: 'adm-hero-title',      label: 'Admissions — hero title',     page: 'Admissions' },
+      { key: 'adm-hero-sub',        label: 'Admissions — hero subtitle',  page: 'Admissions' },
+      { key: 'news-hero-title',     label: 'News — hero title',           page: 'News' },
+      { key: 'news-hero-sub',       label: 'News — hero subtitle',        page: 'News' },
+      { key: 'contact-hero-title',  label: 'Contact — hero title',        page: 'Contact' },
+      { key: 'contact-hero-sub',    label: 'Contact — hero subtitle',     page: 'Contact' }
+    ];
+
+    /* ================= STATE ================= */
+    var settings = { colors:{}, texts:{}, images:{}, news:[], boxes:[] };
+    var discovered = null;          // result of scanning the pages
+    var editingBox = -1, editingNews = -1;
+
+    function normalize(s){
+      s = s || {};
+      return {
+        colors: s.colors || {}, texts: s.texts || {}, images: s.images || {},
+        news: Array.isArray(s.news) ? s.news : [], boxes: Array.isArray(s.boxes) ? s.boxes : []
       };
+    }
+    function loadLocal(){ try { var s = JSON.parse(localStorage.getItem(KEY)); if (s) settings = normalize(s); } catch(e){} }
+    function saveLocal(){ try { localStorage.setItem(KEY, JSON.stringify(settings)); return true; } catch(e){ return false; } }
+    function loadServer(){
+      return fetch(BRIDGE, {cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(s){ if (s && typeof s === 'object') { settings = normalize(s); saveLocal(); } })
+        .catch(function(){ /* no server yet — local only */ });
+    }
 
-      var gate      = document.getElementById('gate');
-      var gateForm  = document.getElementById('gateForm');
-      var gatePass  = document.getElementById('gatePass');
-      var gateError = document.getElementById('gateError');
-      var dashboard = document.getElementById('dashboard');
-      var saveBtn   = document.getElementById('saveBtn');
-      var saveStatus= document.getElementById('saveStatus');
-      var exportBtn = document.getElementById('exportBtn');
-      var importFile= document.getElementById('importFile');
-      var resetBtn  = document.getElementById('resetBtn');
-      var logoutBtn = document.getElementById('logoutBtn');
+    /* ================= HELPERS ================= */
+    function $(id){ return document.getElementById(id); }
+    function esc(s){
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+      });
+    }
+    function human(k){ return k.replace(/[-_]+/g,' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }); }
+    function showBanner(msg, warn){
+      var b = $('saved-banner');
+      b.textContent = msg;
+      b.style.display = 'block';
+      b.style.padding = '10px 14px';
+      b.style.borderRadius = '10px';
+      b.style.marginBottom = '14px';
+      b.style.fontSize = '.92rem';
+      b.style.background = warn ? '#fdf3e3' : '#e8f5ee';
+      b.style.border = '1px solid ' + (warn ? '#f0d9a8' : '#bfe3cf');
+      b.style.color = warn ? '#7a5510' : '#0a4a2a';
+      clearTimeout(b._t);
+      b._t = setTimeout(function(){ b.style.display = 'none'; }, warn ? 12000 : 5000);
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
 
-      /* ---------- Auth ---------- */
-      function isAuthed() {
-        try { return sessionStorage.getItem(AUTH_KEY) === '1'; }
-        catch (e) { return false; }
+    /* ================= GATE ================= */
+    function tryEnter(){
+      if ($('gate-pass').value === PASSCODE) {
+        sessionStorage.setItem('itss_admin_ok','1');
+        enter();
+      } else {
+        $('gate-error').style.display = 'block';
       }
-      function showDashboard() {
-        gate.classList.add('hidden');
-        dashboard.classList.remove('hidden');
-        fillForm();
-      }
-      gateForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (gatePass.value === PASSCODE) {
-          try { sessionStorage.setItem(AUTH_KEY, '1'); } catch (err) {}
-          gateError.textContent = '';
-          showDashboard();
-        } else {
-          gateError.textContent = 'Incorrect passcode. Please try again.';
-          gatePass.value = '';
-          gatePass.focus();
+    }
+    function enter(){
+      $('gate').style.display = 'none';
+      $('shell').style.display = 'block';
+      start();
+    }
+    $('gate-btn').addEventListener('click', tryEnter);
+    $('gate-pass').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryEnter(); });
+    $('logout-btn').addEventListener('click', function(){
+      sessionStorage.removeItem('itss_admin_ok');
+      location.reload();
+    });
+
+    /* ================= TABS ================= */
+    $('tabs').addEventListener('click', function(e){
+      var btn = e.target.closest('button'); if (!btn) return;
+      document.querySelectorAll('#tabs button').forEach(function(b){ b.classList.toggle('on', b === btn); });
+      document.querySelectorAll('.admin-pane').forEach(function(p){ p.classList.toggle('on', p.id === 'pane-' + btn.getAttribute('data-pane')); });
+    });
+
+    /* ================= APPEARANCE ================= */
+    function refreshColorPreview(){
+      $('ap-band').style.background  = settings.colors['--green']      || '#0f6b3f';
+      $('ap-btn').style.background   = settings.colors['--green-dark'] || '#0a4a2a';
+      $('ap-btn2').style.background  = settings.colors['--gold']       || '#f2b01e';
+      $('ap-btn2').style.color       = settings.colors['--green-deep'] || '#06331d';
+    }
+    function buildColors(){
+      document.querySelectorAll('[data-color]').forEach(function(inp){
+        var v = inp.getAttribute('data-color');
+        if (settings.colors[v]) inp.value = settings.colors[v];
+        if (!inp._wired) {
+          inp._wired = true;
+          inp.addEventListener('input', function(){
+            settings.colors[v] = inp.value;
+            refreshColorPreview();
+          });
         }
       });
-      logoutBtn.addEventListener('click', function () {
-        try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
-        location.reload();
-      });
+      refreshColorPreview();
+    }
 
-      /* ---------- Load / fill ---------- */
-      function getSaved() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-        catch (e) { return {}; }
-      }
-      function currentValues() {
-        var saved = getSaved();
-        var merged = {};
-        Object.keys(DEFAULTS).forEach(function (key) {
-          merged[key] = (saved[key] != null && saved[key] !== '') ? saved[key] : DEFAULTS[key];
-        });
-        return merged;
-      }
-      function fillForm() {
-        var values = currentValues();
-        document.querySelectorAll('[data-key]').forEach(function (el) {
-          var key = el.getAttribute('data-key');
-          if (values[key] != null) el.value = values[key];
-        });
-      }
-
-      /* ---------- Save ---------- */
-      function setStatus(msg, ok) {
-        saveStatus.textContent = msg;
-        saveStatus.className = 'save-status ' + (ok ? 'ok' : 'err');
-        if (msg) {
-          setTimeout(function () {
-            if (saveStatus.textContent === msg) saveStatus.textContent = '';
-          }, 5000);
-        }
-      }
-      saveBtn.addEventListener('click', function () {
-        var data = {};
-        document.querySelectorAll('[data-key]').forEach(function (el) {
-          var v = el.value.trim();
-          if (v !== '') data[el.getAttribute('data-key')] = v;
-        });
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          setStatus('✔ Saved! Open the website in this browser to see your changes.', true);
-        } catch (e) {
-          setStatus('Could not save — browser storage is unavailable.', false);
-        }
-      });
-
-      /* ---------- Export content.json ---------- */
-      exportBtn.addEventListener('click', function () {
-        var data = currentValues();
-        // include anything extra previously saved too
-        var saved = getSaved();
-        Object.keys(saved).forEach(function (k) {
-          if (saved[k] != null && saved[k] !== '') data[k] = saved[k];
-        });
-        var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = 'content.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        setStatus('✔ content.json downloaded — upload it next to index.html on your host.', true);
-      });
-
-      /* ---------- Import content.json ---------- */
-      importFile.addEventListener('change', function () {
-        var file = importFile.files && importFile.files[0];
-        if (!file) return;
-        var reader = new FileReader();
-        reader.onload = function () {
-          try {
-            var data = JSON.parse(reader.result);
-            if (typeof data !== 'object' || data === null) throw new Error('bad');
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            fillForm();
-            setStatus('✔ File loaded and saved. Review the fields above.', true);
-          } catch (e) {
-            setStatus('That file is not a valid content.json.', false);
-          }
-          importFile.value = '';
+    /* ================= PHOTO SLOTS ================= */
+    function photoSlotHTML(item, cur){
+      var shown = cur || item.orig;
+      return '<img class="ps-img" src="' + esc(shown) + '" alt="" onerror="this.style.opacity=.25">' +
+        '<div class="ps-body"><h4>' + esc(item.label) + '</h4>' +
+        '<p class="admin-note" style="margin:0 0 8px">Default file: <code>' + esc(item.orig) + '</code>' +
+        (cur === '' ? ' — <strong>currently removed</strong>' : (cur && cur !== item.orig ? ' — <strong>currently replaced</strong>' : '')) + '</p>' +
+        '<div class="ps-actions">' +
+        '<label class="btn-mini" style="cursor:pointer">📤 Upload<input type="file" accept="image/*" hidden></label>' +
+        '<input type="text" class="ps-path" placeholder="or path, e.g. images/slide1.jpg" value="' + (cur && cur.indexOf('data:') !== 0 ? esc(cur) : '') + '" style="padding:6px 10px;border:1px solid var(--line,#d8e2da);border-radius:8px;font:inherit;min-width:200px">' +
+        '<button class="btn-mini danger ps-remove" type="button">🗑️ Remove</button>' +
+        '</div></div>';
+    }
+    function wirePhotoSlot(box, item){
+      var img   = box.querySelector('.ps-img');
+      var file  = box.querySelector('input[type=file]');
+      var path  = box.querySelector('.ps-path');
+      var rem   = box.querySelector('.ps-remove');
+      file.addEventListener('change', function(){
+        var f = file.files[0]; if (!f) return;
+        if (f.size > 900 * 1024) alert('This image is over 800 KB. It will still work, but a smaller image keeps saving fast — consider resizing it.');
+        var rd = new FileReader();
+        rd.onload = function(){
+          settings.images[item.key] = rd.result;
+          img.src = rd.result; img.style.opacity = 1;
+          path.value = '';
         };
-        reader.readAsText(file);
+        rd.readAsDataURL(f);
       });
-
-      /* ---------- Reset ---------- */
-      resetBtn.addEventListener('click', function () {
-        if (!confirm('Remove ALL changes made on this browser and restore the original wording?')) return;
-        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-        fillForm();
-        setStatus('✔ Changes cleared — the website shows its original wording again.', true);
+      path.addEventListener('input', function(){
+        var v = path.value.trim();
+        if (v) { settings.images[item.key] = v; img.src = v; img.style.opacity = 1; }
+        else   { delete settings.images[item.key]; img.src = item.orig; img.style.opacity = 1; }
       });
+      rem.addEventListener('click', function(){
+        settings.images[item.key] = '';      // script.js hides the img → green placeholder returns
+        img.style.opacity = .25; path.value = '';
+        showBanner('"' + human(item.key) + '" marked as removed — press Save All Changes to apply.', false);
+      });
+    }
+    function buildPhotos(){
+      var logoItems = (discovered ? discovered.images : FALLBACK_IMAGES).filter(function(i){ return i.key === 'logo'; });
+      var others    = (discovered ? discovered.images : FALLBACK_IMAGES).filter(function(i){ return i.key !== 'logo'; });
+      $('logo-slot').innerHTML = logoItems.length
+        ? '<div class="photo-slot">' + photoSlotHTML(logoItems[0], settings.images['logo']) + '</div>'
+        : '<p class="empty-note">No logo slot found.</p>';
+      if (logoItems.length) wirePhotoSlot($('logo-slot').firstElementChild, logoItems[0]);
+      $('photo-slots').innerHTML = others.length
+        ? others.map(function(i){ return '<div class="photo-slot">' + photoSlotHTML(i, settings.images[i.key]) + '</div>'; }).join('')
+        : '<p class="empty-note">No photo slots found on the pages.</p>';
+      var slots = $('photo-slots').children;
+      for (var n = 0; n < slots.length; n++) wirePhotoSlot(slots[n], others[n]);
+    }
 
-      /* ---------- Boot ---------- */
-      if (isAuthed()) showDashboard();
+    /* ================= PAGE TEXT ================= */
+    function buildTexts(){
+      var wrap = $('text-fields');
+      var groups = {}; // page name -> items
+      if (discovered) {
+        discovered.texts.forEach(function(t){
+          if (DEDICATED[t.key]) return;
+          (groups[t.page] = groups[t.page] || []).push(t);
+        });
+      } else {
+        FALLBACK_TEXTS.forEach(function(t){
+          if (DEDICATED[t.key]) return;
+          (groups[t.page] = groups[t.page] || []).push(t);
+        });
+      }
+      var html = Object.keys(groups).map(function(page){
+        var items = groups[page].map(function(t){
+          var long = (t.current || '').length > 80;
+          var field = long
+            ? '<textarea rows="3" data-tk="' + esc(t.key) + '" placeholder="' + esc((t.current || '').slice(0, 400)) + '"></textarea>'
+            : '<input type="text" data-tk="' + esc(t.key) + '" placeholder="' + esc(t.current || '') + '">';
+          return '<div class="form-row tf-item" data-search="' + esc((t.key + ' ' + t.label + ' ' + page).toLowerCase()) + '">' +
+            '<label>' + esc(t.label) + ' <span class="tf-key">' + esc(t.key) + '</span></label>' + field + '</div>';
+        }).join('');
+        return '<div class="tf-group card"><h3>📄 ' + esc(page) + '</h3>' + items + '</div>';
+      }).join('');
+      wrap.innerHTML = html || '<p class="empty-note">No editable text found.</p>';
+      wrap.querySelectorAll('[data-tk]').forEach(function(el){
+        var k = el.getAttribute('data-tk');
+        if (settings.texts[k]) el.value = settings.texts[k];
+        el.addEventListener('input', function(){
+          if (el.value.trim() === '') delete settings.texts[k];
+          else settings.texts[k] = el.value;
+        });
+      });
+    }
+    $('text-filter').addEventListener('input', function(){
+      var q = this.value.trim().toLowerCase();
+      document.querySelectorAll('#text-fields .tf-item').forEach(function(it){
+        it.style.display = !q || it.getAttribute('data-search').indexOf(q) !== -1 ? '' : 'none';
+      });
+    });
 
-    })();
-  </script>
-</body>
-</html>
+    /* ================= PAGE SCANNER ================= */
+    function discover(){
+      var jobs = PAGES.map(function(p){
+        return fetch(p.file, {cache:'no-store'})
+          .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+          .then(function(html){
+            var doc = new DOMParser().parseFromString(html, 'text/html');
+            var texts = [], images = [];
+            doc.querySelectorAll('[data-edit]').forEach(function(el){
+              texts.push({ key: el.getAttribute('data-edit'), label: human(el.getAttribute('data-edit')), current: (el.textContent || '').trim(), page: p.name });
+            });
+            doc.querySelectorAll('[data-edit-img]').forEach(function(el){
+              images.push({ key: el.getAttribute('data-edit-img'), label: el.getAttribute('alt') || human(el.getAttribute('data-edit-img')), orig: el.getAttribute('src') || '', page: p.name });
+            });
+            return { texts: texts, images: images };
+          })
+          .catch(function(){ return null; });
+      });
+      return Promise.all(jobs).then(function(parts){
+        parts = parts.filter(Boolean);
+        if (!parts.length) { discovered = null; return; }
+        var tMap = {}, iMap = {}, tOut = [], iOut = [];
+        parts.forEach(function(pt){
+          pt.texts.forEach(function(t){
+            if (tMap[t.key]) { tMap[t.key].page = 'Every page'; return; }
+            tMap[t.key] = t; tOut.push(t);
+          });
+          pt.images.forEach(function(im){
+            if (iMap[im.key]) return;
+            iMap[im.key] = im; iOut.push(im);
+          });
+        });
+        discovered = { texts: tOut, images: iOut };
+      });
+    }
+
+    /* ================= BOXES ================= */
+    function renderBoxes(){
+      var w = $('box-list');
+      if (!settings.boxes.length) { w.innerHTML = '<p class="empty-note">No boxes yet — add one above.</p>'; return; }
+      w.innerHTML = settings.boxes.map(function(b, i){
+        return '<div class="manage-item"><span class="zone-tag">' + esc(ZONES[b.zone] || b.zone) + '</span>' +
+          '<h4>' + esc(b.title || '(no title)') + '</h4><p>' + esc(b.body || '') + '</p>' +
+          '<div class="mi-actions"><button class="btn-mini" data-eb="' + i + '">✏️ Edit</button>' +
+          '<button class="btn-mini danger" data-db="' + i + '">🗑️ Delete</button></div></div>';
+      }).join('');
+      w.querySelectorAll('[data-eb]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var i = +btn.getAttribute('data-eb'), b = settings.boxes[i];
+          $('box-zone').value = b.zone; $('box-title').value = b.title || ''; $('box-body').value = b.body || '';
+          editingBox = i; $('box-add').textContent = '💾 Update Box'; $('box-cancel').style.display = '';
+          window.scrollTo({top: $('box-zone').getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth'});
+        });
+      });
+      w.querySelectorAll('[data-db]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          if (!confirm('Delete this box?')) return;
+          settings.boxes.splice(+btn.getAttribute('data-db'), 1);
+          renderBoxes();
+        });
+      });
+    }
+    $('box-add').addEventListener('click', function(){
+      var item = { zone: $('box-zone').value, title: $('box-title').value.trim(), body: $('box-body').value.trim() };
+      if (!item.title && !item.body) { alert('Type a title or some text first.'); return; }
+      if (editingBox >= 0) { settings.boxes[editingBox] = item; editingBox = -1; this.textContent = '➕ Add Box'; $('box-cancel').style.display = 'none'; }
+      else settings.boxes.push(item);
+      $('box-title').value = ''; $('box-body').value = '';
+      renderBoxes();
+    });
+    $('box-cancel').addEventListener('click', function(){
+      editingBox = -1; $('box-add').textContent = '➕ Add Box'; this.style.display = 'none';
+      $('box-title').value = ''; $('box-body').value = '';
+    });
+
+    /* ================= NEWS ================= */
+    function renderNews(){
+      var w = $('news-list');
+      if (!settings.news.length) { w.innerHTML = '<p class="empty-note">No news posted yet — the pages show their built-in starter cards.</p>'; return; }
+      w.innerHTML = settings.news.map(function(n, i){
+        return '<div class="manage-item"><span class="zone-tag">' + esc(n.date || '') + '</span>' +
+          '<h4>' + esc(n.title || '(no headline)') + '</h4><p>' + esc(n.body || '') + '</p>' +
+          '<div class="mi-actions"><button class="btn-mini" data-en="' + i + '">✏️ Edit</button>' +
+          '<button class="btn-mini danger" data-dn="' + i + '">🗑️ Delete</button></div></div>';
+      }).join('');
+      w.querySelectorAll('[data-en]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var i = +btn.getAttribute('data-en'), n = settings.news[i];
+          $('news-date').value = n.date || ''; $('news-title').value = n.title || ''; $('news-body').value = n.body || '';
+          editingNews = i; $('news-add').textContent = '💾 Update News'; $('news-cancel').style.display = '';
+        });
+      });
+      w.querySelectorAll('[data-dn]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          if (!confirm('Delete this news card?')) return;
+          settings.news.splice(+btn.getAttribute('data-dn'), 1);
+          renderNews();
+        });
+      });
+    }
+    $('news-add').addEventListener('click', function(){
+      var item = { date: $('news-date').value.trim(), title: $('news-title').value.trim(), body: $('news-body').value.trim() };
+      if (!item.title) { alert('Give the news a headline first.'); return; }
+      if (!item.date) item.date = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+      if (editing
