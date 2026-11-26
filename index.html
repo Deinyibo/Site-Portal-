@@ -1,533 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iriebe Town Secondary School (UBE) — Website Preview</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --green:#0f6b3f; --green-dark:#0a4a2a; --green-deep:#06331d;
-    --gold:#f2b01e; --ink:#1c2b23; --bg:#f2f6f3; --card:#ffffff;
-    --muted:#5b6f63; --line:#dfe8e2;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
-  img{max-width:100%}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
-  h1,h2,h3,.brand-name strong{font-family:'Archivo Black',sans-serif;line-height:1.25}
-  .btn{display:inline-block;background:var(--green);color:#fff;text-decoration:none;padding:11px 24px;border-radius:10px;font-weight:700;border:none;cursor:pointer;font-size:1rem;transition:.2s}
-  .btn:hover{background:var(--green-dark);transform:translateY(-1px)}
-  .btn-light{background:#fff;color:var(--green-dark)}
-  .btn-light:hover{background:var(--gold);color:var(--green-deep)}
-  .center{text-align:center}
-
-  /* ---------- HEADER ---------- */
-  .site-header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 14px rgba(6,51,29,.10)}
-  .header-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:10px;padding-bottom:10px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-  .brand-logo{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo Black';font-size:1.1rem;flex:0 0 46px}
-  .brand-name{display:flex;flex-direction:column}
-  .brand-name strong{font-size:.95rem;color:var(--green-dark)}
-  .brand-name span{font-size:.72rem;color:var(--muted)}
-
-  /* three lines button */
-  .nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;padding:11px 10px}
-  .nav-toggle span{display:block;height:3px;background:var(--green-dark);border-radius:3px;margin:5px 0;transition:.3s}
-  .nav-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-  .nav-toggle.open span:nth-child(2){opacity:0}
-  .nav-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-  .site-nav ul{display:flex;list-style:none;gap:4px;align-items:center}
-  .site-nav a{display:block;text-decoration:none;color:var(--ink);font-weight:500;padding:9px 12px;border-radius:8px;transition:.15s}
-  .site-nav a:hover{background:#e8f2ec;color:var(--green-dark)}
-  .site-nav a.active{color:var(--green);font-weight:700}
-  .site-nav a.nav-result{background:var(--green);color:#fff;font-weight:700;margin-left:6px}
-  .site-nav a.nav-result:hover{background:var(--green-dark)}
-
-  @media (max-width:920px){
-    .nav-toggle{display:block}
-    .site-nav{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);
-      box-shadow:0 18px 30px rgba(6,51,29,.15);display:none}
-    .site-nav.open{display:block}
-    .site-nav ul{flex-direction:column;align-items:stretch;padding:10px 14px 16px}
-    .site-nav a{padding:13px 12px;border-bottom:1px solid #eef3f0;font-size:1.05rem}
-    .site-nav a.nav-result{margin:10px 0 0;text-align:center}
-  }
-
-  /* ---------- TICKER ---------- */
-  .ticker{display:flex;align-items:center;background:var(--green-deep);color:#eafff3;overflow:hidden}
-  .ticker-label{background:var(--gold);color:var(--green-deep);font-weight:700;padding:7px 14px;flex:0 0 auto}
-  .ticker-track{white-space:nowrap;overflow:hidden;flex:1}
-  .ticker-track span{display:inline-block;padding:7px 0;animation:tick 26s linear infinite;font-size:.92rem}
-  @keyframes tick{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-
-  /* ---------- SLIDER ---------- */
-  .slider{position:relative;height:440px;overflow:hidden}
-  .slide{position:absolute;inset:0;opacity:0;transition:opacity .8s;display:flex;align-items:center;justify-content:center;text-align:center}
-  .slide.is-on{opacity:1;z-index:2}
-  .slide .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;opacity:.35}
-  .slide:nth-child(1){background:linear-gradient(135deg,#0f6b3f,#06331d)}
-  .slide:nth-child(2){background:linear-gradient(135deg,#128a50,#0a4a2a)}
-  .slide:nth-child(3){background:linear-gradient(135deg,#0a4a2a,#06331d)}
-  .slide:nth-child(4){background:linear-gradient(135deg,#16a35e,#0f6b3f)}
-  .slide:nth-child(5){background:linear-gradient(135deg,#0f6b3f,#0a4a2a)}
-  .slide:nth-child(6){background:linear-gradient(135deg,#06331d,#0f6b3f)}
-  .slide-caption{position:relative;z-index:3;color:#fff;padding:0 22px;max-width:760px}
-  .slide-caption h1{font-size:clamp(1.5rem,4vw,2.6rem);text-shadow:0 3px 14px rgba(0,0,0,.4)}
-  .slide-caption p{margin:12px 0 20px;font-size:1.1rem;opacity:.95}
-  .slide-hint{position:absolute;bottom:54px;left:0;right:0;text-align:center;color:#d9ffe9;font-size:.72rem;z-index:3;opacity:.85}
-  .slide-prev,.slide-next{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:1.6rem;cursor:pointer}
-  .slide-prev:hover,.slide-next:hover{background:rgba(255,255,255,.35)}
-  .slide-prev{left:14px}.slide-next{right:14px}
-  .slide-dots{position:absolute;bottom:16px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:4}
-  .slide-dots button{width:11px;height:11px;border-radius:50%;border:2px solid #fff;background:transparent;cursor:pointer}
-  .slide-dots button.on{background:var(--gold);border-color:var(--gold)}
-
-  /* ---------- QUICK ACTIONS ---------- */
-  .quick-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:-34px auto 0;position:relative;z-index:5}
-  .qa-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:4px;box-shadow:0 10px 24px rgba(6,51,29,.10);transition:.2s}
-  .qa-card:hover{transform:translateY(-4px);border-color:var(--green)}
-  .qa-icon{font-size:1.7rem}
-  .qa-card strong{color:var(--green-dark)}
-  .qa-card span:last-child{font-size:.85rem;color:var(--muted)}
-
-  /* ---------- SECTIONS ---------- */
-  .section{padding:56px 0}
-  .section-title{text-align:center;color:var(--green-dark);margin-bottom:26px;font-size:1.5rem}
-  .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
-  @media(max-width:820px){.two-col{grid-template-columns:1fr}}
-  .col-text h2{color:var(--green-dark);margin-bottom:12px}
-  .col-text p{margin-bottom:12px}
-  .col-media{background:linear-gradient(135deg,#128a50,#06331d);border-radius:16px;min-height:260px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:#fff}
-
-  .stats-band{background:var(--green-dark);color:#fff;padding:38px 0}
-  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;text-align:center}
-  .stat b{display:block;font-family:'Archivo Black';font-size:2rem;color:var(--gold)}
-  .stat span{font-size:.9rem;opacity:.9}
-
-  .video-box{max-width:760px;margin:0 auto;background:#06331d;border-radius:16px;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#cfe9da;gap:8px;border:1px dashed #2c7a52}
-  .video-box .play{width:66px;height:66px;border-radius:50%;background:var(--gold);color:var(--green-deep);display:flex;align-items:center;justify-content:center;font-size:1.6rem}
-
-  .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:22px}
-  .news-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-  .news-date{display:inline-block;background:#e8f2ec;color:var(--green-dark);font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px}
-  .news-card h3{color:var(--green-dark);font-size:1.02rem;margin-bottom:6px}
-  .news-card p{font-size:.9rem;color:var(--muted)}
-
-  .cta-band{background:linear-gradient(120deg,var(--green),var(--green-dark));color:#fff;padding:40px 0}
-  .cta-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px}
-  .cta-row h2{margin-bottom:4px}
-
-  /* ---------- INNER PAGES ---------- */
-  .page-hero{background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;padding:52px 0;text-align:center}
-  .page-hero h1{font-size:clamp(1.4rem,3.4vw,2.1rem)}
-  .page-hero p{opacity:.92;margin-top:8px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px}
-  .card h3{color:var(--green-dark);margin-bottom:8px}
-  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-  .list-check{list-style:none}
-  .list-check li{padding:7px 0 7px 30px;position:relative;border-bottom:1px dashed var(--line)}
-  .list-check li::before{content:"✔";position:absolute;left:0;color:var(--green);font-weight:700}
-  .step{display:flex;gap:14px;margin-bottom:16px}
-  .step b{flex:0 0 38px;height:38px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black'}
-  .form-row{margin-bottom:12px}
-  .form-row label{display:block;font-weight:700;font-size:.85rem;margin-bottom:4px;color:var(--green-dark)}
-  .form-row input,.form-row textarea,.form-row select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
-  .form-row input:focus,.form-row textarea:focus{outline:2px solid var(--green)}
-
-  /* ---------- RESULT DEMO ---------- */
-  .demo-badge{display:inline-block;background:var(--gold);color:var(--green-deep);font-weight:700;font-size:.72rem;padding:3px 12px;border-radius:20px;letter-spacing:.06em;margin-bottom:10px}
-  .login-card{max-width:430px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 14px 34px rgba(6,51,29,.12)}
-  .login-card h2{color:var(--green-dark);text-align:center;margin-bottom:4px}
-  .login-card .sub{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:18px}
-  .tabs{display:flex;background:#e8f2ec;border-radius:10px;padding:4px;margin-bottom:18px}
-  .tabs button{flex:1;border:none;background:transparent;padding:9px;border-radius:8px;font-weight:700;cursor:pointer;color:var(--muted)}
-  .tabs button.on{background:#fff;color:var(--green-dark);box-shadow:0 2px 6px rgba(0,0,0,.08)}
-
-  .slip{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:10px;padding:34px;box-shadow:0 14px 34px rgba(6,51,29,.10)}
-  .slip-head{text-align:center;border-bottom:3px double var(--green-dark);padding-bottom:14px;margin-bottom:14px}
-  .slip-head .logo{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black';margin:0 auto 8px}
-  .slip-head h2{color:var(--green-dark);font-size:1.15rem}
-  .slip-head p{font-size:.82rem;color:var(--muted)}
-  .slip-meta{display:flex;flex-wrap:wrap;gap:6px 26px;font-size:.92rem;margin-bottom:14px}
-  .slip table{width:100%;border-collapse:collapse;font-size:.9rem}
-  .slip th,.slip td{border:1px solid var(--line);padding:8px 9px;text-align:center}
-  .slip th{background:var(--green-dark);color:#fff;font-weight:700}
-  .slip td.subj{text-align:left}
-  .grade{font-weight:700;border-radius:6px;padding:2px 9px;color:#fff;font-size:.8rem}
-  .gA{background:#0f6b3f}.gB{background:#2c8a4d}.gC{background:#c9930a}.gE{background:#d97b29}.gF{background:#c0392b}
-  .slip-total td{background:#eef6f1;font-weight:700}
-  .slip-key{font-size:.72rem;color:var(--muted);margin-top:10px}
-  .slip-sig{display:flex;justify-content:space-between;gap:18px;margin-top:52px;text-align:center;font-size:.8rem}
-  .slip-sig div{flex:1}
-  .slip-sig i{display:block;border-top:1px solid #333;margin-bottom:4px}
-  .pdf-note{max-width:760px;margin:14px auto 0;background:#fff8e6;border:1px solid #f0d98c;color:#7a5b00;border-radius:10px;padding:12px 16px;font-size:.85rem}
-
-  /* ---------- FOOTER ---------- */
-  .site-footer{background:var(--green-deep);color:#d9efe2;margin-top:56px}
-  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;padding:44px 18px}
-  .site-footer h3{color:#fff;font-size:1rem;margin-bottom:12px}
-  .footer-links{list-style:none}
-  .footer-links a{color:#bfe3cf;text-decoration:none;font-size:.9rem}
-  .footer-links a:hover{color:var(--gold)}
-  .site-footer a{color:#bfe3cf}
-  .footer-base{border-top:1px solid #14573a;padding:14px 18px;text-align:center;font-size:.8rem;opacity:.85}
-
-  .page{display:none}
-  .page.on{display:block;animation:fade .35s}
-  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-  @media print{
-    .site-header,.site-footer,.cta-band,.no-print,.page-hero,.login-card,.pdf-note{display:none!important}
-    body{background:#fff}
-    .slip{box-shadow:none;border:none}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iriebe Town Secondary School (UBE) — Home</title>
+  <meta name="description" content="Iriebe Town Secondary School (UBE), Port Harcourt — quality junior secondary education. Check results, admissions, news and more.">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- ================= HEADER + MENU ================= -->
+<!-- ===================== HEADER (same on every page) ===================== -->
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#home" onclick="go('home');return false;">
-      <span class="brand-logo">IT</span>
-      <span class="brand-name"><strong>Iriebe Town Secondary School</strong><span>(UBE), Port Harcourt</span></span>
+    <a class="brand" href="index.html">
+      <img src="images/school-logo.png" alt="School logo" class="brand-logo">
+      <span class="brand-name">
+        <strong>Iriebe Town Secondary School</strong>
+        <span>(UBE), Port Harcourt</span>
+      </span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="siteNav">
+
+    <!-- The three lines -->
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main menu">
       <ul>
-        <li><a href="#home" data-pg="home" onclick="go('home');return false;">Home</a></li>
-        <li><a href="#about" data-pg="about" onclick="go('about');return false;">About Us</a></li>
-        <li><a href="#academics" data-pg="academics" onclick="go('academics');return false;">Academics</a></li>
-        <li><a href="#admissions" data-pg="admissions" onclick="go('admissions');return false;">Admissions</a></li>
-        <li><a href="#news" data-pg="news" onclick="go('news');return false;">News &amp; Events</a></li>
-        <li><a href="#contact" data-pg="contact" onclick="go('contact');return false;">Contact</a></li>
-        <li><a class="nav-result" href="#result" onclick="go('result');return false;">📄 Check Result</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="news.html">News &amp; Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="nav-result" href="portal/login.php">Check Result</a></li>
       </ul>
     </nav>
   </div>
-  <div class="ticker">
-    <span class="ticker-label">📢 NEWS</span>
-    <div class="ticker-track"><span>Welcome to Iriebe Town Secondary School (UBE), Port Harcourt — Admission into JSS 1 is open! &nbsp;•&nbsp; Parents can now check results online with a PIN from the school office &nbsp;•&nbsp; Second term begins Monday 12 January 2027 &nbsp;•&nbsp; PTA meeting holds Friday 4 December 2026, 10am prompt.</span></div>
+
+  <!-- Scrolling announcement (edited from admin.html) -->
+  <div class="ticker" aria-label="Announcements">
+    <span class="ticker-label">📢</span>
+    <div class="ticker-track">
+      <span id="ticker-text">Welcome to Iriebe Town Secondary School (UBE), Port Harcourt — admissions are open. Parents can now check results online using the PIN from the school office.</span>
+    </div>
   </div>
 </header>
 
-<!-- ================= PAGE: HOME ================= -->
-<main class="page on" id="pg-home">
-  <section class="slider" id="slider">
-    <div class="slide is-on"><div class="ph">🏫</div>
-      <div class="slide-caption"><h1>Welcome to Iriebe Town Secondary School (UBE)</h1><p>Learning today, leading tomorrow.</p><a class="btn btn-light" href="#" onclick="go('admissions');return false;">Apply for Admission</a></div>
+<main>
+
+  <!-- ===================== PICTURE SLIDER (5–7 photos, auto-changing) ===================== -->
+  <section class="slider" aria-label="School photo gallery">
+    <div class="slide is-on">
+      <img src="images/slide1.jpg" alt="School photo 1" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>Welcome to Iriebe Town Secondary School (UBE)</h1>
+        <p>Learning today, leading tomorrow.</p>
+        <a class="btn btn-light" href="admissions.html">Apply for Admission</a>
+      </div>
     </div>
-    <div class="slide"><div class="ph">📚</div>
-      <div class="slide-caption"><h1>Quality Junior Secondary Education</h1><p>Caring teachers, disciplined students, strong results.</p><a class="btn btn-light" href="#" onclick="go('about');return false;">About Our School</a></div>
+    <div class="slide">
+      <img src="images/slide2.jpg" alt="School photo 2" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>Quality Junior Secondary Education</h1>
+        <p>Caring teachers, disciplined students, strong results.</p>
+        <a class="btn btn-light" href="about.html">About Our School</a>
+      </div>
     </div>
-    <div class="slide"><div class="ph">📄</div>
-      <div class="slide-caption"><h1>Check Results Online</h1><p>Parents: sign in with your child's exam number and PIN.</p><a class="btn btn-light" href="#" onclick="go('result');return false;">Check Result</a></div>
+    <div class="slide">
+      <img src="images/slide3.jpg" alt="School photo 3" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>Check Results Online</h1>
+        <p>Parents: sign in with your child's exam number and PIN.</p>
+        <a class="btn btn-light" href="portal/login.php">Check Result</a>
+      </div>
     </div>
-    <div class="slide"><div class="ph">🧒🏾</div>
-      <div class="slide-caption"><h1>Every Child Matters</h1><p>A safe, friendly place to learn and grow.</p><a class="btn btn-light" href="#" onclick="go('academics');return false;">Our Classes</a></div>
+    <div class="slide">
+      <img src="images/slide4.jpg" alt="School photo 4" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>Every Child Matters</h1>
+        <p>A safe, friendly place to learn and grow.</p>
+        <a class="btn btn-light" href="academics.html">Our Classes</a>
+      </div>
     </div>
-    <div class="slide"><div class="ph">📰</div>
-      <div class="slide-caption"><h1>News &amp; Events</h1><p>See what is happening in school this term.</p><a class="btn btn-light" href="#" onclick="go('news');return false;">Latest News</a></div>
+    <div class="slide">
+      <img src="images/slide5.jpg" alt="School photo 5" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>News &amp; Events</h1>
+        <p>See what is happening in school this term.</p>
+        <a class="btn btn-light" href="news.html">Latest News</a>
+      </div>
     </div>
-    <div class="slide"><div class="ph">📞</div>
-      <div class="slide-caption"><h1>Talk to Us</h1><p>Questions? Visit or message the school office.</p><a class="btn btn-light" href="#" onclick="go('contact');return false;">Contact Us</a></div>
+    <div class="slide">
+      <img src="images/slide6.jpg" alt="School photo 6" onerror="this.style.display='none'">
+      <div class="slide-caption">
+        <h1>Talk to Us</h1>
+        <p>Questions? Visit or message the school office.</p>
+        <a class="btn btn-light" href="contact.html">Contact Us</a>
+      </div>
     </div>
-    <button class="slide-prev" onclick="slideMove(-1)">‹</button>
-    <button class="slide-next" onclick="slideMove(1)">›</button>
-    <div class="slide-hint">Your school photos will appear here (images/slide1.jpg – slide6.jpg)</div>
-    <div class="slide-dots" id="dots"></div>
+
+    <button class="slide-prev" aria-label="Previous photo">‹</button>
+    <button class="slide-next" aria-label="Next photo">›</button>
+    <div class="slide-dots" aria-hidden="true"></div>
   </section>
 
+  <!-- ===================== QUICK ACTIONS ===================== -->
   <section class="quick-actions wrap">
-    <a class="qa-card" href="#" onclick="go('result');return false;"><span class="qa-icon">📄</span><strong>Check Result</strong><span>Parents &amp; students sign in here</span></a>
-    <a class="qa-card" href="#" onclick="go('admissions');return false;"><span class="qa-icon">🎓</span><strong>Admissions</strong><span>How to enrol your child</span></a>
-    <a class="qa-card" href="#" onclick="go('news');return false;"><span class="qa-icon">📰</span><strong>News &amp; Events</strong><span>Announcements and dates</span></a>
-    <a class="qa-card" href="#" onclick="go('contact');return false;"><span class="qa-icon">📞</span><strong>Contact Us</strong><span>Reach the school office</span></a>
+    <a class="qa-card" href="portal/login.php">
+      <span class="qa-icon">📄</span>
+      <strong>Check Result</strong>
+      <span>Parents &amp; students sign in here</span>
+    </a>
+    <a class="qa-card" href="admissions.html">
+      <span class="qa-icon">🎓</span>
+      <strong>Admissions</strong>
+      <span>How to enrol your child</span>
+    </a>
+    <a class="qa-card" href="news.html">
+      <span class="qa-icon">📰</span>
+      <strong>News &amp; Events</strong>
+      <span>Announcements and dates</span>
+    </a>
+    <a class="qa-card" href="contact.html">
+      <span class="qa-icon">📞</span>
+      <strong>Contact Us</strong>
+      <span>Reach the school office</span>
+    </a>
   </section>
 
+  <!-- ===================== WELCOME ===================== -->
   <section class="section wrap two-col">
     <div class="col-text">
       <h2>Welcome from the Head Teacher</h2>
       <p>Iriebe Town Secondary School (UBE) is a junior secondary school serving the families of Iriebe Town and the surrounding communities of Port Harcourt. We believe every child can succeed when they are taught well, disciplined kindly and encouraged daily.</p>
       <p>Our doors are open to parents — visit us, ask questions, and follow your child's progress. With our online result checker, you can view your child's terminal report from anywhere using a simple PIN.</p>
-      <a class="btn" href="#" onclick="go('about');return false;">Read More About Us</a>
+      <a class="btn" href="about.html">Read More About Us</a>
     </div>
-    <div class="col-media">🎓</div>
+    <div class="col-media">
+      <img src="images/slide2.jpg" alt="Students of Iriebe Town Secondary School" onerror="this.closest('.col-media').classList.add('media-empty')">
+    </div>
   </section>
 
+  <!-- ===================== STATS (edited from admin.html) ===================== -->
   <section class="stats-band">
     <div class="wrap stats-grid">
-      <div class="stat"><b>600+</b><span>Students</span></div>
-      <div class="stat"><b>30+</b><span>Teachers</span></div>
-      <div class="stat"><b>9</b><span>Classes (JSS 1–3)</span></div>
-      <div class="stat"><b>95%</b><span>Promotion Rate</span></div>
+      <div class="stat"><b id="stat-students">600+</b><span>Students</span></div>
+      <div class="stat"><b id="stat-teachers">30+</b><span>Teachers</span></div>
+      <div class="stat"><b id="stat-classes">9</b><span>Classes (JSS 1–3)</span></div>
+      <div class="stat"><b id="stat-pass">95%</b><span>Promotion Rate</span></div>
     </div>
   </section>
 
+  <!-- ===================== VIDEO =====================
+       To use YOUR video: put the file at videos/school.mp4.
+       To use YouTube instead: delete the <video>…</video> block
+       and paste your YouTube embed iframe in its place.          -->
   <section class="section wrap">
     <h2 class="section-title">See Our School</h2>
-    <div class="video-box"><div class="play">▶</div><b>Your school video plays here</b><span style="font-size:.8rem;opacity:.8">videos/school.mp4 — or a YouTube embed</span></div>
-  </section>
-
-  <section class="section wrap" style="padding-top:0">
-    <h2 class="section-title">Latest News</h2>
-    <div class="news-grid">
-      <article class="news-card"><span class="news-date">This term</span><h3>Results Are Now Online</h3><p>Parents can check terminal results from home. Collect your child's PIN slip from the school office, then tap "Check Result".</p></article>
-      <article class="news-card"><span class="news-date">Admissions</span><h3>Admission Into JSS 1 Is Open</h3><p>Forms are available at the school office. Bring your child's primary school certificate and birth certificate.</p></article>
-      <article class="news-card"><span class="news-date">Reminder</span><h3>PTA Meeting</h3><p>All parents are invited to the PTA meeting on Friday 4 December 2026, 10am prompt, in the school hall.</p></article>
+    <div class="video-box">
+      <video controls preload="none" poster="images/slide1.jpg">
+        <source src="videos/school.mp4" type="video/mp4">
+        Your browser cannot play this video — please visit the school to see us in person!
+      </video>
     </div>
-    <p class="center"><a class="btn" href="#" onclick="go('news');return false;">All News &amp; Events</a></p>
   </section>
 
+  <!-- ===================== NEWS PREVIEW (edited from admin.html) ===================== -->
+  <section class="section wrap">
+    <h2 class="section-title">Latest News</h2>
+    <div id="news-preview" class="news-grid">
+      <!-- script.js replaces these with the news saved in admin.html -->
+      <article class="news-card">
+        <span class="news-date">This term</span>
+        <h3>Results Are Now Online</h3>
+        <p>Parents can check terminal results from home. Collect your child's PIN slip from the school office, then tap "Check Result".</p>
+      </article>
+      <article class="news-card">
+        <span class="news-date">Admissions</span>
+        <h3>Admission Into JSS 1 Is Open</h3>
+        <p>Forms are available at the school office. Bring your child's primary school certificate and birth certificate.</p>
+      </article>
+      <article class="news-card">
+        <span class="news-date">Reminder</span>
+        <h3>School Fees &amp; PTA Levy</h3>
+        <p>Please pay all fees at the bursary. Receipts are issued immediately — keep them safe.</p>
+      </article>
+    </div>
+    <p class="center"><a class="btn" href="news.html">All News &amp; Events</a></p>
+  </section>
+
+  <!-- ===================== RESULT CTA ===================== -->
   <section class="cta-band">
     <div class="wrap cta-row">
-      <div><h2>Want to check your child's result?</h2><p>Sign in with the exam number and PIN on the slip from the school office.</p></div>
-      <a class="btn btn-light" href="#" onclick="go('result');return false;">Check Result Now</a>
-    </div>
-  </section>
-</main>
-
-<!-- ================= PAGE: ABOUT ================= -->
-<main class="page" id="pg-about">
-  <div class="page-hero"><h1>About Our School</h1><p>Who we are and what we stand for</p></div>
-  <section class="section wrap">
-    <div class="card"><h3>🏫 Our Story</h3><p>Iriebe Town Secondary School (UBE) is a public junior secondary school in Iriebe Town, Port Harcourt, Rivers State, established under the Universal Basic Education programme. We serve JSS 1 to JSS 3 and prepare our students for the Basic Education Certificate Examination (BECE) and senior secondary education.</p></div>
-    <div class="grid-3">
-      <div class="card"><h3>🎯 Our Mission</h3><p>To give every child a solid foundation in learning, character and skills, regardless of background.</p></div>
-      <div class="card"><h3>👁️ Our Vision</h3><p>A school where every child in our community is educated, confident and ready for the future.</p></div>
-      <div class="card"><h3>💚 Our Values</h3><p>Discipline, hard work, honesty, respect and service to our community.</p></div>
-    </div>
-    <div class="card"><h3>👩🏾‍🏫 Our Teachers</h3><p>Our dedicated teachers are qualified, caring and committed to every child's progress. Class sizes are kept manageable so no child is left behind.</p></div>
-  </section>
-</main>
-
-<!-- ================= PAGE: ACADEMICS ================= -->
-<main class="page" id="pg-academics">
-  <div class="page-hero"><h1>Academics</h1><p>Classes and subjects we offer</p></div>
-  <section class="section wrap">
-    <div class="grid-3">
-      <div class="card"><h3>JSS 1</h3><p>Foundation year — settling into secondary school life with strong basics in English, Mathematics and Science.</p></div>
-      <div class="card"><h3>JSS 2</h3><p>Building year — deeper subject knowledge and the start of vocational and business studies.</p></div>
-      <div class="card"><h3>JSS 3</h3><p>Final year — intensive preparation for the BECE and guidance into senior secondary school.</p></div>
-    </div>
-    <div class="card"><h3>📚 Subjects</h3>
-      <ul class="list-check">
-        <li>English Language &nbsp;·&nbsp; Mathematics &nbsp;·&nbsp; Basic Science &nbsp;·&nbsp; Basic Technology</li>
-        <li>Social Studies &nbsp;·&nbsp; Civic Education &nbsp;·&nbsp; Agricultural Science</li>
-        <li>Business Studies &nbsp;·&nbsp; Computer Studies (ICT)</li>
-        <li>Cultural &amp; Creative Arts &nbsp;·&nbsp; Christian Religious Studies</li>
-        <li>Physical &amp; Health Education &nbsp;·&nbsp; Home Economics &nbsp;·&nbsp; French</li>
-      </ul>
-    </div>
-  </section>
-</main>
-
-<!-- ================= PAGE: ADMISSIONS ================= -->
-<main class="page" id="pg-admissions">
-  <div class="page-hero"><h1>Admissions</h1><p>How to enrol your child into JSS 1</p></div>
-  <section class="section wrap" style="max-width:820px">
-    <div class="card">
-      <div class="step"><b>1</b><div><strong>Get the form</strong><p>Collect the admission form from the school office (weekdays, 8am–2pm).</p></div></div>
-      <div class="step"><b>2</b><div><strong>Bring the documents</strong><p>Primary school certificate, birth certificate, and two passport photographs.</p></div></div>
-      <div class="step"><b>3</b><div><strong>Placement test</strong><p>Your child sits a short placement test in English and Mathematics.</p></div></div>
-      <div class="step"><b>4</b><div><strong>Enrolment</strong><p>Successful candidates complete registration and receive their exam number — which also works on this website's result checker.</p></div></div>
-    </div>
-    <div class="card"><h3>❓ Questions?</h3><p>Visit the school office or use the <a href="#" onclick="go('contact');return false;">Contact page</a> — we are happy to help.</p></div>
-  </section>
-</main>
-
-<!-- ================= PAGE: NEWS ================= -->
-<main class="page" id="pg-news">
-  <div class="page-hero"><h1>News &amp; Events</h1><p>Announcements from the school</p></div>
-  <section class="section wrap">
-    <div class="news-grid">
-      <article class="news-card"><span class="news-date">25 Nov 2026</span><h3>Results Are Now Online</h3><p>Parents can now check terminal results from home. Collect your child's PIN slip from the school office, then tap "Check Result".</p></article>
-      <article class="news-card"><span class="news-date">4 Dec 2026</span><h3>PTA Meeting</h3><p>All parents are invited on Friday 4 December 2026, 10am prompt, in the school hall. First term reports will be discussed.</p></article>
-      <article class="news-card"><span class="news-date">18 Dec 2026</span><h3>End of Term Party</h3><p>Students close for the term on Friday 18 December with a small celebration. School resumes Monday 12 January 2027.</p></article>
-      <article class="news-card"><span class="news-date">Admissions</span><h3>JSS 1 Admission Open</h3><p>Forms are available at the school office. See the Admissions page for the steps and required documents.</p></article>
-      <article class="news-card"><span class="news-date">Sports</span><h3>Inter-House Sports</h3><p>Our annual inter-house sports holds early second term. Parents are welcome to come and cheer the houses!</p></article>
-      <article class="news-card"><span class="news-date">Reminder</span><h3>School Fees</h3><p>Please pay all approved levies at the bursary and keep your receipts safe.</p></article>
-    </div>
-  </section>
-</main>
-
-<!-- ================= PAGE: CONTACT ================= -->
-<main class="page" id="pg-contact">
-  <div class="page-hero"><h1>Contact Us</h1><p>We would love to hear from you</p></div>
-  <section class="section wrap two-col" style="align-items:start">
-
-    <div class="col-text">
-      <div class="card"><h3>📍 Visit Us</h3><p>Iriebe Town Secondary School (UBE)<br>Iriebe Town, Port Harcourt, Rivers State</p></div>
-      <div class="card"><h3>📞 Call or Write</h3><p>Phone: +234 000 000 0000<br>Email: info@iriebetownsec.sch.ng<br>Office hours: Monday–Friday, 8:00am – 2:00pm</p></div>
-      <div class="card"><h3>📄 Result PINs</h3><p>PIN slips for the online result checker are collected from the school office — bring your child's exam number.</p></div>
-    </div>
-
-    <div class="card">
-      <h3>✉️ Send a Message</h3>
-      <div class="form-row"><label>Your Name</label><input type="text" placeholder="e.g. Mrs. Amadi"></div>
-      <div class="form-row"><label>Phone or Email</label><input type="text" placeholder="How do we reply you?"></div>
-      <div class="form-row"><label>Message</label><textarea rows="4" placeholder="Type your message here…"></textarea></div>
-      <button class="btn" style="width:100%" onclick="alert('On the live website this message goes to the school office email.');">Send Message</button>
-    </div>
-  </section>
-</main>
-
-<!-- ================= PAGE: CHECK RESULT (demo) ================= -->
-<main class="page" id="pg-result">
-  <div class="page-hero"><h1>Check Result</h1><p>Parents &amp; students — sign in with exam number and PIN</p></div>
-  <section class="section wrap">
-
-    <div class="login-card" id="loginCard">
-      <p class="center"><span class="demo-badge">DEMO PREVIEW</span></p>
-      <h2>Result Portal</h2>
-      <p class="sub">Iriebe Town Secondary School (UBE)</p>
-      <div class="tabs">
-        <button class="on" type="button">🎓 Student / Parent</button>
-        <button type="button" onclick="alert('Staff sign in: teachers and the school admin use this tab on the live portal.');">👔 Staff</button>
+      <div>
+        <h2>Want to check your child's result?</h2>
+        <p>Sign in with the exam number and PIN on the slip from the school office.</p>
       </div>
-      <div class="form-row"><label>Exam Number</label><input type="text" id="demoExam" value="ITSS/2026/014"></div>
-      <div class="form-row"><label>PIN</label><input type="text" id="demoPin" value="4821-7356"></div>
-      <button class="btn" style="width:100%" onclick="demoLogin()">View Result</button>
-      <p class="sub" style="margin:14px 0 0">On the live website, the school generates a PIN for each student when the PDF results are uploaded — the parent collects it from the office.</p>
+      <a class="btn btn-light" href="portal/login.php">Check Result Now</a>
     </div>
-
-    <div id="slipView" style="display:none">
-      <div class="slip">
-        <div class="slip-head">
-          <span class="logo">IT</span>
-          <h2>Iriebe Town Secondary School (UBE), Port Harcourt</h2>
-          <p>TERMINAL REPORT SHEET — First Term, 2026/2027 Session</p>
-        </div>
-        <div class="slip-meta">
-          <span>Name: <b>Chidera Okonkwo</b></span>
-          <span>Exam No: <b>ITSS/2026/014</b></span>
-          <span>Class: <b>JSS 2A</b></span>
-          <span>Position: <b>5th of 38</b></span>
-        </div>
-        <table>
-          <thead><tr><th style="text-align:left">Subject</th><th>CA 1 /20</th><th>CA 2 /20</th><th>Exam /60</th><th>Total /100</th><th>Grade</th><th>Remark</th></tr></thead>
-          <tbody>
-            <tr><td class="subj">English Language</td><td>16</td><td>15</td><td>44</td><td><b>75</b></td><td><span class="grade gA">A</span></td><td>Excellent</td></tr>
-            <tr><td class="subj">Mathematics</td><td>14</td><td>13</td><td>41</td><td><b>68</b></td><td><span class="grade gB">B</span></td><td>Very Good</td></tr>
-            <tr><td class="subj">Basic Science</td><td>15</td><td>16</td><td>40</td><td><b>71</b></td><td><span class="grade gA">A</span></td><td>Excellent</td></tr>
-            <tr><td class="subj">Social Studies</td><td>13</td><td>14</td><td>36</td><td><b>63</b></td><td><span class="grade gB">B</span></td><td>Very Good</td></tr>
-            <tr><td class="subj">Basic Technology</td><td>12</td><td>13</td><td>33</td><td><b>58</b></td><td><span class="grade gC">C</span></td><td>Credit</td></tr>
-            <tr><td class="subj">Business Studies</td><td>14</td><td>12</td><td>38</td><td><b>64</b></td><td><span class="grade gB">B</span></td><td>Very Good</td></tr>
-            <tr><td class="subj">Computer Studies (ICT)</td><td>17</td><td>16</td><td>49</td><td><b>82</b></td><td><span class="grade gA">A</span></td><td>Excellent</td></tr>
-            <tr><td class="subj">Agricultural Science</td><td>11</td><td>12</td><td>30</td><td><b>53</b></td><td><span class="grade gC">C</span></td><td>Credit</td></tr>
-            <tr><td class="subj">Civic Education</td><td>13</td><td>14</td><td>35</td><td><b>62</b></td><td><span class="grade gB">B</span></td><td>Very Good</td></tr>
-            <tr><td class="subj">Christian Religious Studies</td><td>15</td><td>15</td><td>42</td><td><b>72</b></td><td><span class="grade gA">A</span></td><td>Excellent</td></tr>
-            <tr><td class="subj">Physical &amp; Health Education</td><td>10</td><td>11</td><td>27</td><td><b>48</b></td><td><span class="grade gE">E</span></td><td>Pass</td></tr>
-            <tr><td class="subj">Cultural &amp; Creative Arts</td><td>12</td><td>12</td><td>31</td><td><b>55</b></td><td><span class="grade gC">C</span></td><td>Credit</td></tr>
-            <tr class="slip-total"><td class="subj">Overall</td><td colspan="3"></td><td><b>771 / 1200</b></td><td><span class="grade gB">B</span></td><td>Average: 64.3%</td></tr>
-          </tbody>
-        </table>
-        <p class="slip-key">Grading: A = 70–100 (Excellent) · B = 60–69 (Very Good) · C = 50–59 (Credit) · D = 45–49 (Merit) · E = 40–44 (Pass) · F = Below 40 (Fail). CA 1 + CA 2 + Exam = 100.</p>
-        <div class="slip-sig"><div><i></i>Class Teacher</div><div><i></i>Principal</div><div><i></i>Date</div></div>
-      </div>
-
-      <div class="pdf-note no-print">📁 <b>On the live website:</b> this is where the student's <b>actual PDF result</b> appears — the same file the school uploaded into the class folder — ready to view, download or print. Nobody else can open it without this student's PIN.</div>
-
-      <p class="center no-print" style="margin-top:18px">
-        <button class="btn" onclick="window.print()">🖨️ Print Result</button>
-        <button class="btn btn-light" style="border:1px solid var(--green);margin-left:8px" onclick="demoLogout()">Sign Out</button>
-      </p>
-    </div>
-
   </section>
+
 </main>
 
-<!-- ================= FOOTER ================= -->
+<!-- ===================== FOOTER (same on every page) ===================== -->
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div>
       <h3>Iriebe Town Secondary School (UBE)</h3>
-      <p>Iriebe Town, Port Harcourt, Rivers State</p>
-      <p>Phone: +234 000 000 0000<br>Email: info@iriebetownsec.sch.ng</p>
+      <p id="contact-address">Iriebe Town, Port Harcourt, Rivers State</p>
+      <p>Phone: <a id="contact-phone" href="tel:+2340000000000">+234 000 000 0000</a><br>
+         Email: <a id="contact-email" href="mailto:info@iriebetownsec.sch.ng">info@iriebetownsec.sch.ng</a></p>
     </div>
     <div>
       <h3>Pages</h3>
       <ul class="footer-links">
-        <li><a href="#home" onclick="go('home');return false;">Home</a></li>
-        <li><a href="#about" onclick="go('about');return false;">About Us</a></li>
-        <li><a href="#academics" onclick="go('academics');return false;">Academics</a></li>
-        <li><a href="#admissions" onclick="go('admissions');return false;">Admissions</a></li>
-        <li><a href="#news" onclick="go('news');return false;">News &amp; Events</a></li>
-        <li><a href="#contact" onclick="go('contact');return false;">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="admissions.html">Admissions</a></li>
+        <li><a href="news.html">News &amp; Events</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
     <div>
       <h3>Portals</h3>
       <ul class="footer-links">
-        <li><a href="#result" onclick="go('result');return false;">Check Result (Parents)</a></li>
-        <li><a href="#result" onclick="go('result');return false;">Staff Sign In</a></li>
+        <li><a href="portal/login.php">Check Result (Parents)</a></li>
+        <li><a href="portal/login.php">Staff Sign In</a></li>
+        <li><a href="admin.html">Website Admin</a></li>
       </ul>
     </div>
   </div>
-  <div class="footer-base">© 2026 Iriebe Town Secondary School (UBE). All rights reserved.</div>
+  <div class="footer-base">
+    <span>© <span data-nt-year>2026</span> Iriebe Town Secondary School (UBE). All rights reserved.</span>
+    <span class="footer-credit">Built with <img src="images/new-tech-logo.png" alt="" class="nt-logo" onerror="this.style.display='none'"> care for our students.</span>
+  </div>
 </footer>
 
-<script>
-/* ---------- three-lines menu ---------- */
-var navToggle = document.getElementById('navToggle');
-var siteNav   = document.getElementById('siteNav');
-navToggle.addEventListener('click', function () {
-  var open = siteNav.classList.toggle('open');
-  navToggle.classList.toggle('open', open);
-});
-
-/* ---------- page routing (menu connects every page) ---------- */
-function go(pg) {
-  var pages = document.querySelectorAll('.page');
-  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('on');
-  var el = document.getElementById('pg-' + pg);
-  if (el) el.classList.add('on');
-  var links = document.querySelectorAll('.site-nav a[data-pg]');
-  for (var j = 0; j < links.length; j++)
-    links[j].classList.toggle('active', links[j].getAttribute('data-pg') === pg);
-  siteNav.classList.remove('open');
-  navToggle.classList.remove('open');
-  window.scrollTo(0, 0);
-}
-
-/* ---------- photo slider (auto + arrows + dots) ---------- */
-var slides = document.querySelectorAll('#slider .slide');
-var dotsBox = document.getElementById('dots');
-var cur = 0, timer = null;
-for (var s = 0; s < slides.length; s++) {
-  (function (i) {
-    var d = document.createElement('button');
-    d.addEventListener('click', function () { showSlide(i); restart(); });
-    dotsBox.appendChild(d);
-  })(s);
-}
-function showSlide(i) {
-  cur = (i + slides.length) % slides.length;
-  for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('is-on', k === cur);
-  var ds = dotsBox.children;
-  for (var m = 0; m < ds.length; m++) ds[m].classList.toggle('on', m === cur);
-}
-function slideMove(n) { showSlide(cur + n); restart(); }
-function restart() { clearInterval(timer); timer = setInterval(function () { showSlide(cur + 1); }, 5000); }
-showSlide(0); restart();
-
-/* ---------- result checker demo ---------- */
-function demoLogin() {
-  var ex = document.getElementById('demoExam').value.trim();
-  var pn = document.getElementById('demoPin').value.trim();
-  if (!ex || !pn) { alert('Enter the exam number and PIN — they are pre-filled for this demo.'); return; }
-  document.getElementById('loginCard').style.display = 'none';
-  document.getElementById('slipView').style.display = 'block';
-  window.scrollTo(0, 0);
-}
-function demoLogout() {
-  document.getElementById('slipView').style.display = 'none';
-  document.getElementById('loginCard').style.display = 'block';
-  window.scrollTo(0, 0);
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
