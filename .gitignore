@@ -1,0 +1,6 @@
+portal/config.php
+portal/results/
+portal/site_settings.data.json
+portal/site_settings.backup.json
+Thumbs.db
+.DS_Store
