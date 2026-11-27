@@ -81,6 +81,7 @@ h1, h2, h3, .brand-name strong {
 }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
 .brand-logo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--green-dark); flex: 0 0 46px; }
+.brand-logo{height:44px;width:auto;object-fit:contain} 
 .brand-name { display: flex; flex-direction: column; }
 .brand-name strong { font-size: .95rem; color: var(--green-dark); }
 .brand-name span { font-size: .72rem; color: var(--muted); }
