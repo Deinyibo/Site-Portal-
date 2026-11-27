@@ -79,22 +79,13 @@ h1, h2, h3, .brand-name strong {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
-.brand-logo { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--green-dark); flex: 0 0 46px; }
-.brand-name { display: flex; flex-direction: column; }
-.brand-name strong { font-size: .95rem; color: var(--green-dark); }
-.brand-name span { font-size: .72rem; color: var(--muted); }
-
-/* The three lines button — hidden on wide screens */
-.nav-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff;
-  cursor: pointer;
-  padding: 11px 10px;
+.brand-logo{
+  width:56px;
+  height:56px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#fff;
+  flex-shrink:0;
 }
 .nav-toggle span {
   display: block;
