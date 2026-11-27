@@ -26,7 +26,14 @@
   /* ---------- HEADER ---------- */
   .site-header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 14px rgba(6,51,29,.10)}
   .header-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:10px;padding-bottom:10px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand-logo{
+  width:56px;
+  height:56px;
+  object-fit:contain;
+  border-radius:50%;
+  background:#fff;
+  flex-shrink:0;
+}
   .brand-logo{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Archivo Black';font-size:1.1rem;flex:0 0 46px}
   .brand-name{display:flex;flex-direction:column}
   .brand-name strong{font-size:.95rem;color:var(--green-dark)}
